@@ -404,7 +404,7 @@
     }
 
     input::placeholder {
-      color: #475569;
+      color: #64748b;
     }
 
     .preset-row {
@@ -424,6 +424,7 @@
       cursor: pointer;
     }
 
+    /* Ordered List (GK -> Defenders -> Midfielders -> Forwards) */
     .player-inputs-list {
       display: flex;
       flex-direction: column;
@@ -432,30 +433,24 @@
 
     .player-input-row {
       display: grid;
-      grid-template-columns: 28px 54px 56px 1fr;
+      grid-template-columns: 54px 64px 1fr;
       gap: 8px;
       align-items: center;
-    }
-
-    .slot-index {
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--kit-primary);
-      text-align: center;
     }
 
     .pos-tag-static {
       font-size: 10px;
       font-weight: 800;
-      color: var(--text-muted);
+      color: var(--kit-primary);
       text-align: center;
       background: #141c26;
-      padding: 8px 4px;
+      padding: 9px 4px;
       border-radius: 5px;
     }
 
     .num-input {
       text-align: center;
+      border-color: rgba(234, 179, 8, 0.25) !important;
     }
 
     /* --- OBS CLEAN MODE (?obs=1) --- */
@@ -575,8 +570,8 @@
 
       <div class="panel-card">
         <div class="panel-header-row">
-          <div class="panel-title">3. Starting 11 (1. GK → Defenders → Midfielders → Forwards)</div>
-          <button class="btn btn-ghost" onclick="clearNumbers()">Clear All Numbers</button>
+          <div class="panel-title">3. Starting 11 (GK → Defenders → Midfielders → Forwards)</div>
+          <button class="btn btn-ghost" onclick="clearNumbers()">Clear Numbers</button>
         </div>
         <div class="player-inputs-list" id="playerInputsContainer"></div>
       </div>
@@ -717,11 +712,9 @@
       container.innerHTML = "";
 
       squad.forEach((player, idx) => {
-        const slotNumber = idx + 1;
         const row = document.createElement("div");
         row.className = "player-input-row";
         row.innerHTML = `
-          <div class="slot-index">${slotNumber}</div>
           <div class="pos-tag-static">${formation[idx].pos}</div>
           <input
             type="text"
@@ -791,7 +784,8 @@
         node.style.left = `${spot.x}%`;
         node.style.top = `${spot.y}%`;
 
-        const displayNum = player.num.trim() !== "" ? player.num.trim() : (i + 1);
+        /* Only shows the number you type in — stays blank until you enter it */
+        const displayNum = player.num ? player.num.trim() : "";
         const isGk = i === 0 ? "gk" : "";
 
         node.innerHTML = `
@@ -839,7 +833,7 @@
     }
 
     function saveState() {
-      localStorage.setItem("kranky_starting_11_v2", JSON.stringify(getStateObject()));
+      localStorage.setItem("kranky_starting_11_v3", JSON.stringify(getStateObject()));
     }
 
     function loadState() {
@@ -857,7 +851,7 @@
         } catch (e) {}
       }
 
-      const saved = localStorage.getItem("kranky_starting_11_v2");
+      const saved = localStorage.getItem("kranky_starting_11_v3");
       if (saved) {
         try {
           applyStateObject(JSON.parse(saved));
