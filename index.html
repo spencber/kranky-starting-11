@@ -206,7 +206,6 @@
       border-radius: 8px;
       border: 1.5px solid rgba(234, 179, 8, 0.45);
       overflow: hidden;
-      /* Mowed turf stripes + floodlight center glow */
       background:
         radial-gradient(circle at 50% 45%, rgba(22, 163, 74, 0.22) 0%, rgba(8, 13, 18, 0.92) 78%),
         repeating-linear-gradient(
@@ -262,7 +261,7 @@
       border-bottom: none;
     }
 
-    /* --- PLAYER TOKENS (NO FLOATING CB/RB CLUTTER!) --- */
+    /* --- PLAYER TOKENS --- */
     .player-node {
       position: absolute;
       transform: translate(-50%, -50%);
@@ -479,7 +478,7 @@
         </div>
         <div class="header-right">
           <div class="tactical-label">Tactical Breakdown</div>
-          <div class="formation-readout" id="displayFormation">4-3-3 • ATTACKING</div>
+          <div class="formation-readout" id="displayFormation">4-2-3-1 • STARTING XI</div>
         </div>
       </div>
 
@@ -507,10 +506,14 @@
           <div>
             <label>Tactical Formation</label>
             <select id="formationSelect" onchange="handleFormationChange()">
-              <option value="4-3-3">4-3-3 (Attacking)</option>
               <option value="4-2-3-1">4-2-3-1 (Balanced)</option>
-              <option value="3-5-2">3-5-2 (Wingbacks)</option>
+              <option value="4-3-3">4-3-3 (Attacking)</option>
+              <option value="3-4-3">3-4-3 (Wide Wingbacks)</option>
+              <option value="3-5-2">3-5-2 (Midfield Control)</option>
               <option value="4-4-2">4-4-2 (Classic)</option>
+              <option value="5-3-2">5-3-2 (Low Block / Counter)</option>
+              <option value="4-1-4-1">4-1-4-1 (Holding Pivot)</option>
+              <option value="4-3-2-1">4-3-2-1 (Christmas Tree)</option>
             </select>
           </div>
           <div style="display:flex; align-items:flex-end; padding-bottom:6px;">
@@ -549,58 +552,138 @@
   </main>
 
   <script>
+    /* STRAIGHT, UNMISTAKABLE TACTICAL LINES (NO OVER-CURVING) */
     const FORMATIONS = {
-      "4-3-3": [
-        { pos: "GK", x: 50, y: 90 },
-        { pos: "LB", x: 16, y: 73 },
-        { pos: "CB", x: 38, y: 76 },
-        { pos: "CB", x: 62, y: 76 },
-        { pos: "RB", x: 84, y: 73 },
-        { pos: "CM", x: 26, y: 50 },
-        { pos: "CDM", x: 50, y: 56 },
-        { pos: "CM", x: 74, y: 50 },
-        { pos: "LW", x: 18, y: 24 },
-        { pos: "ST", x: 50, y: 17 },
-        { pos: "RW", x: 82, y: 24 }
-      ],
       "4-2-3-1": [
         { pos: "GK", x: 50, y: 90 },
-        { pos: "LB", x: 16, y: 73 },
-        { pos: "CB", x: 38, y: 76 },
-        { pos: "CB", x: 62, y: 76 },
-        { pos: "RB", x: 84, y: 73 },
+        /* Flat Back 4 */
+        { pos: "LB", x: 15, y: 74 },
+        { pos: "CB", x: 38, y: 75 },
+        { pos: "CB", x: 62, y: 75 },
+        { pos: "RB", x: 85, y: 74 },
+        /* Flat Double Pivot (2) */
         { pos: "CDM", x: 35, y: 56 },
         { pos: "CDM", x: 65, y: 56 },
-        { pos: "LW", x: 18, y: 34 },
+        /* Flat Attacking Band (3) */
+        { pos: "LW", x: 18, y: 36 },
         { pos: "CAM", x: 50, y: 36 },
-        { pos: "RW", x: 82, y: 34 },
-        { pos: "ST", x: 50, y: 16 }
+        { pos: "RW", x: 82, y: 36 },
+        /* Lone Striker (1) */
+        { pos: "ST", x: 50, y: 15 }
+      ],
+      "4-3-3": [
+        { pos: "GK", x: 50, y: 90 },
+        /* Flat Back 4 */
+        { pos: "LB", x: 15, y: 74 },
+        { pos: "CB", x: 38, y: 75 },
+        { pos: "CB", x: 62, y: 75 },
+        { pos: "RB", x: 85, y: 74 },
+        /* Flat Midfield 3 */
+        { pos: "CM", x: 24, y: 49 },
+        { pos: "CDM", x: 50, y: 50 },
+        { pos: "CM", x: 76, y: 49 },
+        /* Front 3 */
+        { pos: "LW", x: 18, y: 21 },
+        { pos: "ST", x: 50, y: 18 },
+        { pos: "RW", x: 82, y: 21 }
+      ],
+      "3-4-3": [
+        { pos: "GK", x: 50, y: 90 },
+        /* Flat Back 3 */
+        { pos: "CB", x: 24, y: 75 },
+        { pos: "CB", x: 50, y: 75 },
+        { pos: "CB", x: 76, y: 75 },
+        /* Flat Midfield 4 */
+        { pos: "LWB", x: 14, y: 49 },
+        { pos: "CM", x: 38, y: 49 },
+        { pos: "CM", x: 62, y: 49 },
+        { pos: "RWB", x: 86, y: 49 },
+        /* Front 3 */
+        { pos: "LW", x: 20, y: 21 },
+        { pos: "ST", x: 50, y: 18 },
+        { pos: "RW", x: 80, y: 21 }
       ],
       "3-5-2": [
         { pos: "GK", x: 50, y: 90 },
-        { pos: "CB", x: 25, y: 75 },
-        { pos: "CB", x: 50, y: 77 },
-        { pos: "CB", x: 75, y: 75 },
-        { pos: "LWB", x: 13, y: 50 },
-        { pos: "CM", x: 34, y: 54 },
-        { pos: "CDM", x: 50, y: 44 },
-        { pos: "CM", x: 66, y: 54 },
-        { pos: "RWB", x: 87, y: 50 },
+        /* Flat Back 3 */
+        { pos: "CB", x: 24, y: 75 },
+        { pos: "CB", x: 50, y: 75 },
+        { pos: "CB", x: 76, y: 75 },
+        /* Flat Midfield 5 */
+        { pos: "LWB", x: 12, y: 49 },
+        { pos: "CM", x: 31, y: 49 },
+        { pos: "CDM", x: 50, y: 50 },
+        { pos: "CM", x: 69, y: 49 },
+        { pos: "RWB", x: 88, y: 49 },
+        /* Flat Front 2 */
         { pos: "ST", x: 36, y: 19 },
         { pos: "ST", x: 64, y: 19 }
       ],
       "4-4-2": [
         { pos: "GK", x: 50, y: 90 },
-        { pos: "LB", x: 16, y: 73 },
-        { pos: "CB", x: 38, y: 76 },
-        { pos: "CB", x: 62, y: 76 },
-        { pos: "RB", x: 84, y: 73 },
-        { pos: "LM", x: 16, y: 46 },
-        { pos: "CM", x: 38, y: 49 },
-        { pos: "CM", x: 62, y: 49 },
-        { pos: "RM", x: 84, y: 46 },
+        /* Flat Back 4 */
+        { pos: "LB", x: 15, y: 74 },
+        { pos: "CB", x: 38, y: 75 },
+        { pos: "CB", x: 62, y: 75 },
+        { pos: "RB", x: 85, y: 74 },
+        /* Flat Midfield 4 */
+        { pos: "LM", x: 15, y: 48 },
+        { pos: "CM", x: 38, y: 48 },
+        { pos: "CM", x: 62, y: 48 },
+        { pos: "RM", x: 85, y: 48 },
+        /* Flat Front 2 */
         { pos: "ST", x: 36, y: 19 },
         { pos: "ST", x: 64, y: 19 }
+      ],
+      "5-3-2": [
+        { pos: "GK", x: 50, y: 90 },
+        /* Flat Back 5 */
+        { pos: "LWB", x: 12, y: 73 },
+        { pos: "CB", x: 31, y: 75 },
+        { pos: "CB", x: 50, y: 75 },
+        { pos: "CB", x: 69, y: 75 },
+        { pos: "RWB", x: 88, y: 73 },
+        /* Flat Midfield 3 */
+        { pos: "CM", x: 26, y: 48 },
+        { pos: "CDM", x: 50, y: 48 },
+        { pos: "CM", x: 74, y: 48 },
+        /* Flat Front 2 */
+        { pos: "ST", x: 36, y: 19 },
+        { pos: "ST", x: 64, y: 19 }
+      ],
+      "4-1-4-1": [
+        { pos: "GK", x: 50, y: 90 },
+        /* Flat Back 4 */
+        { pos: "LB", x: 15, y: 75 },
+        { pos: "CB", x: 38, y: 76 },
+        { pos: "CB", x: 62, y: 76 },
+        { pos: "RB", x: 85, y: 75 },
+        /* Single Pivot (1) */
+        { pos: "CDM", x: 50, y: 58 },
+        /* Flat Midfield 4 */
+        { pos: "LM", x: 15, y: 38 },
+        { pos: "CM", x: 38, y: 38 },
+        { pos: "CM", x: 62, y: 38 },
+        { pos: "RM", x: 85, y: 38 },
+        /* Lone Striker (1) */
+        { pos: "ST", x: 50, y: 15 }
+      ],
+      "4-3-2-1": [
+        { pos: "GK", x: 50, y: 90 },
+        /* Flat Back 4 */
+        { pos: "LB", x: 15, y: 75 },
+        { pos: "CB", x: 38, y: 76 },
+        { pos: "CB", x: 62, y: 76 },
+        { pos: "RB", x: 85, y: 75 },
+        /* Flat Midfield 3 */
+        { pos: "CM", x: 25, y: 55 },
+        { pos: "CDM", x: 50, y: 55 },
+        { pos: "CM", x: 75, y: 55 },
+        /* Flat Dual CAMs (2) */
+        { pos: "CAM", x: 34, y: 35 },
+        { pos: "CAM", x: 66, y: 35 },
+        /* Lone Striker (1) */
+        { pos: "ST", x: 50, y: 15 }
       ]
     };
 
@@ -612,10 +695,10 @@
       { num: "2", name: "Lembikisa" },
       { num: "15", name: "Palmer" },
       { num: "8", name: "Latibeaudiere" },
-      { num: "10", name: "De Cordova-Reid" },
       { num: "7", name: "Bailey" },
-      { num: "9", name: "Antonio" },
-      { num: "11", name: "Nicholson" }
+      { num: "10", name: "De Cordova-Reid" },
+      { num: "11", name: "Nicholson" },
+      { num: "9", name: "Antonio" }
     ];
 
     function buildInputs() {
@@ -728,7 +811,6 @@
       alert("Copied clean OBS Browser Source URL:\n" + url.toString());
     }
 
-    // Live sync between Studio tab and OBS Browser Source
     window.addEventListener("storage", () => {
       loadState();
       buildInputs();
