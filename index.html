@@ -6,14 +6,14 @@
   <title>Kranky Starting 11 Studio</title>
   <style>
     :root {
-      --bg-app: #070b10;
-      --bg-panel: #0d131a;
-      --bg-input: #141c26;
+      --bg-app: #07090d;
+      --bg-panel: #0e1218;
+      --bg-input: #151b24;
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --kit-primary: #eab308;
+      --kit-primary: #facc15;
       --kit-text: #090d16;
       --gk-primary: #38bdf8;
-      --accent-color: #eab308;
+      --accent-color: #facc15;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
     }
@@ -37,7 +37,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 12px 24px;
-      background: #0a0f16;
+      background: #0a0d12;
       border-bottom: 1px solid var(--border-subtle);
     }
 
@@ -119,76 +119,52 @@
       margin: 0 auto;
     }
 
-    /* --- BROADCAST GRAPHIC CARD --- */
+    /* --- 1ST LOOK: SLEEK MATTE-CHARCOAL BROADCAST CARD --- */
     .broadcast-card {
       width: 440px;
-      background: #090d14;
-      border-radius: 12px;
-      border: 1px solid color-mix(in srgb, var(--accent-color) 40%, transparent);
+      background: #121417;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
       position: relative;
     }
 
     .graphic-header {
-      position: relative;
-      padding: 14px 18px 14px 22px;
-      background: linear-gradient(135deg, #0b1219 0%, #101c17 100%);
-      border-bottom: 2px solid var(--accent-color);
+      padding: 16px 20px;
+      background: #16181d;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .graphic-header::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 6px;
-      background: linear-gradient(
-        to bottom,
-        var(--kit-primary) 0%,
-        var(--accent-color) 50%,
-        var(--gk-primary) 100%
-      );
-    }
-
     .header-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
     }
 
     .team-badge {
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      background: linear-gradient(145deg, var(--kit-primary), color-mix(in srgb, var(--kit-primary) 65%, #000));
+      padding: 4px 8px;
+      min-width: 38px;
+      height: 26px;
+      border-radius: 5px;
+      background: var(--kit-primary);
       color: var(--kit-text);
       font-weight: 900;
-      font-size: 13px;
+      font-size: 11px;
+      letter-spacing: 0.5px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-    }
-
-    .team-meta .eyebrow {
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      color: var(--accent-color);
       text-transform: uppercase;
-      margin-bottom: 2px;
     }
 
     .team-meta .team-title {
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: 0.5px;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
       color: #ffffff;
       line-height: 1.1;
@@ -198,44 +174,34 @@
       text-align: right;
     }
 
-    .header-right .tactical-label {
-      font-size: 9px;
-      color: var(--text-muted);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
     .header-right .formation-readout {
       font-size: 11px;
       font-weight: 800;
-      color: #e2e8f0;
-      margin-top: 2px;
+      letter-spacing: 0.8px;
+      color: var(--accent-color);
+      text-transform: uppercase;
     }
 
-    /* --- STADIUM PITCH --- */
+    /* --- CLEAN DARK PITCH (NO GREEN TINT) --- */
     .pitch-wrapper {
-      padding: 14px;
-      background: #080c12;
+      padding: 14px 16px 10px;
+      background: #121417;
     }
 
     .pitch {
       position: relative;
       width: 100%;
-      height: 540px;
+      height: 530px;
       border-radius: 8px;
-      border: 1.5px solid color-mix(in srgb, var(--accent-color) 45%, transparent);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       overflow: hidden;
-      background:
-        radial-gradient(circle at 50% 45%, rgba(22, 163, 74, 0.22) 0%, rgba(8, 13, 18, 0.92) 78%),
-        repeating-linear-gradient(
-          to bottom,
-          #0c1813 0px,
-          #0c1813 45px,
-          #10211a 45px,
-          #10211a 90px
-        );
-      box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.85);
+      background: repeating-linear-gradient(
+        to bottom,
+        #16181c 0px,
+        #16181c 53px,
+        #1b1e23 53px,
+        #1b1e23 106px
+      );
     }
 
     .pitch-line-half {
@@ -244,7 +210,7 @@
       left: 0;
       right: 0;
       height: 1px;
-      background: rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.09);
     }
 
     .pitch-circle-center {
@@ -255,7 +221,7 @@
       height: 96px;
       transform: translate(-50%, -50%);
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.09);
     }
 
     .pitch-box-top {
@@ -263,9 +229,9 @@
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 190px;
-      height: 68px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      width: 185px;
+      height: 64px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
       border-top: none;
     }
 
@@ -274,13 +240,13 @@
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 190px;
-      height: 68px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      width: 185px;
+      height: 64px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
       border-bottom: none;
     }
 
-    /* --- PLAYER TOKENS --- */
+    /* --- PLAYER TOKENS (1ST LOOK) --- */
     .player-node {
       position: absolute;
       transform: translate(-50%, -50%);
@@ -291,37 +257,35 @@
     }
 
     .jersey-token {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: radial-gradient(
-        circle at 30% 25%,
-        color-mix(in srgb, var(--token-bg, var(--kit-primary)) 65%, #ffffff) 0%,
-        var(--token-bg, var(--kit-primary)) 65%,
-        color-mix(in srgb, var(--token-bg, var(--kit-primary)) 55%, #000000) 100%
+        circle at 32% 28%,
+        color-mix(in srgb, var(--token-bg, var(--kit-primary)) 75%, #ffffff) 0%,
+        var(--token-bg, var(--kit-primary)) 68%,
+        color-mix(in srgb, var(--token-bg, var(--kit-primary)) 75%, #000000) 100%
       );
       color: var(--token-fg, var(--kit-text));
       font-weight: 900;
-      font-size: 16px;
+      font-size: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid #090d14;
-      box-shadow:
-        0 0 0 2px color-mix(in srgb, var(--token-bg, var(--kit-primary)) 55%, transparent),
-        0 8px 16px rgba(0, 0, 0, 0.85);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.65);
     }
 
     .pos-pill {
       display: none;
-      margin-top: -6px;
+      margin-top: -5px;
       margin-bottom: 2px;
       padding: 1px 5px;
       font-size: 8px;
       font-weight: 800;
-      background: #090d14;
+      background: #0d0f12;
       color: var(--accent-color);
-      border: 1px solid color-mix(in srgb, var(--accent-color) 45%, transparent);
+      border: 1px solid rgba(255, 255, 255, 0.16);
       border-radius: 3px;
       letter-spacing: 0.5px;
     }
@@ -330,35 +294,33 @@
       display: inline-block;
     }
 
-    /* BOLDER, LARGER, MORE PROMINENT BROADCAST NAMEPLATE */
+    /* SLEEK COMPACT NAMEPLATE (NO LEFT ACCENT BAR) */
     .name-plate {
       margin-top: 6px;
-      padding: 4px 10px;
-      background: rgba(8, 12, 19, 0.96);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-left: 4px solid var(--accent-color);
+      padding: 3px 9px;
+      background: rgba(11, 13, 16, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 4px;
-      font-size: 13.5px;
-      font-weight: 900;
-      letter-spacing: 0.6px;
-      color: #ffffff;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.7px;
+      color: #f8fafc;
       text-transform: uppercase;
       white-space: nowrap;
-      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.88);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.65);
     }
 
     .graphic-footer {
-      padding: 8px 16px;
-      background: #070a10;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 10px 18px 12px;
+      background: #121417;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: 0.8px;
+      color: #64748b;
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
     }
 
     /* --- STUDIO CONTROLS PANEL --- */
@@ -516,7 +478,7 @@
 
     .num-input {
       text-align: center;
-      border-color: rgba(234, 179, 8, 0.25) !important;
+      border-color: rgba(250, 204, 21, 0.25) !important;
     }
 
     /* --- OBS CLEAN MODE (?obs=1) --- */
@@ -553,19 +515,17 @@
   </header>
 
   <main class="workspace">
-    <!-- LEFT: BROADCAST GRAPHIC -->
+    <!-- LEFT: BROADCAST GRAPHIC (1ST LOOK) -->
     <section class="broadcast-card" id="broadcastGraphic">
       <div class="graphic-header">
         <div class="header-left">
-          <div class="team-badge" id="badgeText">JR</div>
+          <div class="team-badge" id="badgeText">JAM</div>
           <div class="team-meta">
-            <div class="eyebrow">Starting Lineup</div>
-            <div class="team-title" id="displayTeamName">JAMAICA REGGAE BOYZ</div>
+            <div class="team-title" id="displayTeamName">JAMAICA XI</div>
           </div>
         </div>
         <div class="header-right">
-          <div class="tactical-label">Tactical Breakdown</div>
-          <div class="formation-readout" id="displayFormation">4-2-3-1 • STARTING XI</div>
+          <div class="formation-readout" id="displayFormation">4-3-3 ATTACKING</div>
         </div>
       </div>
 
@@ -580,8 +540,8 @@
       </div>
 
       <div class="graphic-footer">
-        <span id="footerLeft">REGGAE BOYZ MATCHDAY</span>
-        <span>KRANKY LIVE BROADCAST</span>
+        <span id="footerLeft">KRANKY LIVE MATCHDAY</span>
+        <span id="footerRight">PRE-MATCH SHOW</span>
       </div>
     </section>
 
@@ -589,14 +549,14 @@
     <section class="controls-column">
       <div class="panel-card">
         <div class="panel-header-row">
-          <div class="panel-title">1. Formation & Broadcast Style</div>
+          <div class="panel-title">1. Formation &amp; Broadcast Style</div>
         </div>
         <div class="grid-2">
           <div>
             <label>Tactical Formation</label>
             <select id="formationSelect" onchange="handleFormationChange()">
-              <option value="4-2-3-1">4-2-3-1 (Balanced)</option>
               <option value="4-3-3">4-3-3 (Attacking)</option>
+              <option value="4-2-3-1">4-2-3-1 (Balanced)</option>
               <option value="3-4-3">3-4-3 (Wide Wingbacks)</option>
               <option value="3-5-2">3-5-2 (Midfield Control)</option>
               <option value="4-4-2">4-4-2 (Classic)</option>
@@ -616,23 +576,34 @@
 
       <div class="panel-card">
         <div class="panel-header-row">
-          <div class="panel-title">2. Team Identity & Global Kit Theme</div>
+          <div class="panel-title">2. Team Identity &amp; Global Kit Theme</div>
         </div>
         <div class="grid-2">
           <div>
             <label>Club / National Team Name</label>
-            <input type="text" id="teamNameInput" value="JAMAICA REGGAE BOYZ" oninput="renderPitch()" />
+            <input type="text" id="teamNameInput" value="JAMAICA XI" oninput="renderPitch()" />
           </div>
           <div>
-            <label>Badge Initials</label>
-            <input type="text" id="badgeInput" value="JR" maxlength="3" oninput="renderPitch()" />
+            <label>Badge Tag (3 Letters)</label>
+            <input type="text" id="badgeInput" value="JAM" maxlength="4" oninput="renderPitch()" />
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top: 10px;">
+          <div>
+            <label>Footer Left Text</label>
+            <input type="text" id="footerLeftInput" value="KRANKY LIVE MATCHDAY" oninput="renderPitch()" />
+          </div>
+          <div>
+            <label>Footer Right Text</label>
+            <input type="text" id="footerRightInput" value="PRE-MATCH SHOW" oninput="renderPitch()" />
           </div>
         </div>
 
         <div class="color-grid">
           <div class="color-box">
             <span>All Outfield</span>
-            <input type="color" id="kitColorPicker" value="#eab308" oninput="updateGlobalColors()" />
+            <input type="color" id="kitColorPicker" value="#facc15" oninput="updateGlobalColors()" />
           </div>
           <div class="color-box">
             <span>Number Text</span>
@@ -640,17 +611,17 @@
           </div>
           <div class="color-box">
             <span>GK Default</span>
-            <input type="color" id="gkColorPicker" value="#38bdf8" oninput="updateGlobalColors()" />
+            <input type="color" id="gkColorPicker" value="#facc15" oninput="updateGlobalColors()" />
           </div>
           <div class="color-box">
-            <span>Accent Trim</span>
-            <input type="color" id="accentColorPicker" value="#eab308" oninput="updateGlobalColors()" />
+            <span>Formation Accent</span>
+            <input type="color" id="accentColorPicker" value="#facc15" oninput="updateGlobalColors()" />
           </div>
         </div>
 
         <div class="preset-row">
-          <button class="preset-btn" onclick="applyPreset('#eab308', '#090d16', '#38bdf8', '#eab308')">Jamaica Gold / Sky GK</button>
-          <button class="preset-btn" onclick="applyPreset('#eab308', '#090d16', '#f97316', '#eab308')">Jamaica Gold / Orange GK</button>
+          <button class="preset-btn" onclick="applyPreset('#facc15', '#090d16', '#facc15', '#facc15')">Jamaica All-Gold</button>
+          <button class="preset-btn" onclick="applyPreset('#facc15', '#090d16', '#38bdf8', '#facc15')">Jamaica Gold / Sky GK</button>
           <button class="preset-btn" onclick="applyPreset('#ef4444', '#ffffff', '#38bdf8', '#ef4444')">Arsenal Red / White</button>
           <button class="preset-btn" onclick="applyPreset('#38bdf8', '#090d16', '#f97316', '#38bdf8')">Sky Blue / Orange GK</button>
         </div>
@@ -669,20 +640,18 @@
   <script>
     const SYNC_CHANNEL = "kranky_starting_11_spencber_live_v2";
 
+    const FORMATION_LABELS = {
+      "4-3-3": "4-3-3 ATTACKING",
+      "4-2-3-1": "4-2-3-1 BALANCED",
+      "3-4-3": "3-4-3 WINGBACKS",
+      "3-5-2": "3-5-2 CONTROL",
+      "4-4-2": "4-4-2 CLASSIC",
+      "5-3-2": "5-3-2 LOW BLOCK",
+      "4-1-4-1": "4-1-4-1 PIVOT",
+      "4-3-2-1": "4-3-2-1 NARROW"
+    };
+
     const FORMATIONS = {
-      "4-2-3-1": [
-        { pos: "GK", x: 50, y: 90 },
-        { pos: "LB", x: 15, y: 74 },
-        { pos: "CB", x: 38, y: 75 },
-        { pos: "CB", x: 62, y: 75 },
-        { pos: "RB", x: 85, y: 74 },
-        { pos: "CDM", x: 35, y: 56 },
-        { pos: "CDM", x: 65, y: 56 },
-        { pos: "LW", x: 18, y: 36 },
-        { pos: "CAM", x: 50, y: 36 },
-        { pos: "RW", x: 82, y: 36 },
-        { pos: "ST", x: 50, y: 15 }
-      ],
       "4-3-3": [
         { pos: "GK", x: 50, y: 90 },
         { pos: "LB", x: 15, y: 74 },
@@ -695,6 +664,19 @@
         { pos: "LW", x: 18, y: 21 },
         { pos: "ST", x: 50, y: 18 },
         { pos: "RW", x: 82, y: 21 }
+      ],
+      "4-2-3-1": [
+        { pos: "GK", x: 50, y: 90 },
+        { pos: "LB", x: 15, y: 74 },
+        { pos: "CB", x: 38, y: 75 },
+        { pos: "CB", x: 62, y: 75 },
+        { pos: "RB", x: 85, y: 74 },
+        { pos: "CDM", x: 35, y: 56 },
+        { pos: "CDM", x: 65, y: 56 },
+        { pos: "LW", x: 18, y: 36 },
+        { pos: "CAM", x: 50, y: 36 },
+        { pos: "RW", x: 82, y: 36 },
+        { pos: "ST", x: 50, y: 15 }
       ],
       "3-4-3": [
         { pos: "GK", x: 50, y: 90 },
@@ -736,312 +718,4 @@
         { pos: "ST", x: 64, y: 19 }
       ],
       "5-3-2": [
-        { pos: "GK", x: 50, y: 90 },
-        { pos: "LWB", x: 12, y: 73 },
-        { pos: "CB", x: 31, y: 75 },
-        { pos: "CB", x: 50, y: 75 },
-        { pos: "CB", x: 69, y: 75 },
-        { pos: "RWB", x: 88, y: 73 },
-        { pos: "CM", x: 26, y: 48 },
-        { pos: "CDM", x: 50, y: 48 },
-        { pos: "CM", x: 74, y: 48 },
-        { pos: "ST", x: 36, y: 19 },
-        { pos: "ST", x: 64, y: 19 }
-      ],
-      "4-1-4-1": [
-        { pos: "GK", x: 50, y: 90 },
-        { pos: "LB", x: 15, y: 75 },
-        { pos: "CB", x: 38, y: 76 },
-        { pos: "CB", x: 62, y: 76 },
-        { pos: "RB", x: 85, y: 75 },
-        { pos: "CDM", x: 50, y: 58 },
-        { pos: "LM", x: 15, y: 38 },
-        { pos: "CM", x: 38, y: 38 },
-        { pos: "CM", x: 62, y: 38 },
-        { pos: "RM", x: 85, y: 38 },
-        { pos: "ST", x: 50, y: 15 }
-      ],
-      "4-3-2-1": [
-        { pos: "GK", x: 50, y: 90 },
-        { pos: "LB", x: 15, y: 75 },
-        { pos: "CB", x: 38, y: 76 },
-        { pos: "CB", x: 62, y: 76 },
-        { pos: "RB", x: 85, y: 75 },
-        { pos: "CM", x: 25, y: 55 },
-        { pos: "CDM", x: 50, y: 55 },
-        { pos: "CM", x: 75, y: 55 },
-        { pos: "CAM", x: 34, y: 35 },
-        { pos: "CAM", x: 66, y: 35 },
-        { pos: "ST", x: 50, y: 15 }
-      ]
-    };
-
-    let currentColors = {
-      primary: "#eab308",
-      text: "#090d16",
-      gk: "#38bdf8",
-      accent: "#eab308"
-    };
-
-    let squad = [
-      { num: "", name: "Blake", color: "#38bdf8" },
-      { num: "", name: "Leigh", color: "#eab308" },
-      { num: "", name: "Pinnock", color: "#eab308" },
-      { num: "", name: "Lowe", color: "#eab308" },
-      { num: "", name: "Lembikisa", color: "#eab308" },
-      { num: "", name: "Palmer", color: "#eab308" },
-      { num: "", name: "Latibeaudiere", color: "#eab308" },
-      { num: "", name: "Bailey", color: "#eab308" },
-      { num: "", name: "De Cordova-Reid", color: "#eab308" },
-      { num: "", name: "Nicholson", color: "#eab308" },
-      { num: "", name: "Antonio", color: "#eab308" }
-    ];
-
-    function getContrastText(hex) {
-      const clean = (hex || "#eab308").replace("#", "");
-      if (clean.length !== 6) return "#090d16";
-      const r = parseInt(clean.substr(0, 2), 16);
-      const g = parseInt(clean.substr(2, 2), 16);
-      const b = parseInt(clean.substr(4, 2), 16);
-      const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-      return yiq >= 145 ? "#090d16" : "#ffffff";
-    }
-
-    function applyColorVars(colors) {
-      currentColors = colors;
-      document.documentElement.style.setProperty("--kit-primary", colors.primary);
-      document.documentElement.style.setProperty("--kit-text", colors.text);
-      document.documentElement.style.setProperty("--gk-primary", colors.gk);
-      document.documentElement.style.setProperty("--accent-color", colors.accent || colors.primary);
-
-      document.getElementById("kitColorPicker").value = colors.primary;
-      document.getElementById("kitTextPicker").value = colors.text;
-      document.getElementById("gkColorPicker").value = colors.gk;
-      document.getElementById("accentColorPicker").value = colors.accent || colors.primary;
-    }
-
-    function updateGlobalColors() {
-      const primary = document.getElementById("kitColorPicker").value;
-      const text = document.getElementById("kitTextPicker").value;
-      const gk = document.getElementById("gkColorPicker").value;
-      const accent = document.getElementById("accentColorPicker").value;
-
-      applyColorVars({ primary, text, gk, accent });
-
-      squad.forEach((p, idx) => {
-        p.color = idx === 0 ? gk : primary;
-      });
-
-      buildInputs();
-      renderPitch();
-    }
-
-    function applyPreset(primary, text, gk, accent) {
-      applyColorVars({ primary, text, gk, accent });
-      squad.forEach((p, idx) => {
-        p.color = idx === 0 ? gk : primary;
-      });
-      buildInputs();
-      renderPitch();
-    }
-
-    function buildInputs() {
-      const container = document.getElementById("playerInputsContainer");
-      const formation = FORMATIONS[document.getElementById("formationSelect").value];
-      container.innerHTML = "";
-
-      squad.forEach((player, idx) => {
-        const fallbackColor = idx === 0 ? currentColors.gk : currentColors.primary;
-        const playerColor = player.color || fallbackColor;
-
-        const row = document.createElement("div");
-        row.className = "player-input-row";
-        row.innerHTML = `
-          <div class="pos-tag-static">${formation[idx].pos}</div>
-          <input
-            type="color"
-            class="player-color-picker"
-            title="Change this player's circle color"
-            value="${playerColor}"
-            oninput="updatePlayer(${idx}, 'color', this.value)"
-          />
-          <input
-            type="text"
-            class="num-input"
-            placeholder="#"
-            maxlength="3"
-            value="${player.num}"
-            oninput="updatePlayer(${idx}, 'num', this.value)"
-          />
-          <input
-            type="text"
-            placeholder="Player Name"
-            value="${player.name}"
-            oninput="updatePlayer(${idx}, 'name', this.value)"
-          />
-        `;
-        container.appendChild(row);
-      });
-    }
-
-    function updatePlayer(index, field, value) {
-      squad[index][field] = value;
-      renderPitch();
-    }
-
-    function clearNumbers() {
-      squad.forEach((p) => (p.num = ""));
-      buildInputs();
-      renderPitch();
-    }
-
-    function handleFormationChange() {
-      buildInputs();
-      renderPitch();
-    }
-
-    function togglePositions() {
-      const show = document.getElementById("togglePosCheck").checked;
-      document.getElementById("pitchCanvas").classList.toggle("show-pos", show);
-      saveLocal();
-    }
-
-    function renderPitch() {
-      const formationKey = document.getElementById("formationSelect").value;
-      const coords = FORMATIONS[formationKey];
-      const layer = document.getElementById("playersLayer");
-
-      document.getElementById("displayTeamName").textContent =
-        document.getElementById("teamNameInput").value || "TEAM LINEUP";
-      document.getElementById("badgeText").textContent =
-        document.getElementById("badgeInput").value || "XI";
-      document.getElementById("displayFormation").textContent = `${formationKey} • STARTING XI`;
-
-      layer.innerHTML = "";
-
-      squad.forEach((player, i) => {
-        const spot = coords[i];
-        const node = document.createElement("div");
-        node.className = "player-node";
-        node.style.left = `${spot.x}%`;
-        node.style.top = `${spot.y}%`;
-
-        const displayNum = player.num ? player.num.trim() : "";
-        const fallbackColor = i === 0 ? currentColors.gk : currentColors.primary;
-        const tokenBg = player.color || fallbackColor;
-        const tokenFg = i === 0 ? getContrastText(tokenBg) : currentColors.text;
-
-        node.innerHTML = `
-          <div class="jersey-token" style="--token-bg:${tokenBg}; --token-fg:${tokenFg};">${displayNum}</div>
-          <div class="pos-pill">${spot.pos}</div>
-          <div class="name-plate">${player.name}</div>
-        `;
-        layer.appendChild(node);
-      });
-
-      saveLocal();
-    }
-
-    function getStateObject() {
-      return {
-        team: document.getElementById("teamNameInput").value,
-        badge: document.getElementById("badgeInput").value,
-        formation: document.getElementById("formationSelect").value,
-        showPos: document.getElementById("togglePosCheck").checked,
-        colors: currentColors,
-        squad
-      };
-    }
-
-    function applyStateObject(parsed) {
-      if (!parsed) return;
-      if (parsed.team) document.getElementById("teamNameInput").value = parsed.team;
-      if (parsed.badge) document.getElementById("badgeInput").value = parsed.badge;
-      if (parsed.formation && FORMATIONS[parsed.formation]) {
-        document.getElementById("formationSelect").value = parsed.formation;
-      }
-      if (typeof parsed.showPos === "boolean") {
-        document.getElementById("togglePosCheck").checked = parsed.showPos;
-        document.getElementById("pitchCanvas").classList.toggle("show-pos", parsed.showPos);
-      }
-      if (parsed.colors) {
-        applyColorVars(parsed.colors);
-      }
-      if (Array.isArray(parsed.squad) && parsed.squad.length === 11) {
-        squad = parsed.squad;
-      }
-    }
-
-    function saveLocal() {
-      localStorage.setItem("kranky_starting_11_v5", JSON.stringify(getStateObject()));
-    }
-
-    async function pushCloudSync() {
-      const statusEl = document.getElementById("syncStatusText");
-      statusEl.textContent = "Syncing...";
-      statusEl.style.color = "#eab308";
-      try {
-        await fetch(`https://ntfy.sh/${SYNC_CHANNEL}`, {
-          method: "POST",
-          body: JSON.stringify(getStateObject())
-        });
-        statusEl.textContent = "Synced! Hit Refresh in OBS";
-        statusEl.style.color = "#22c55e";
-      } catch (e) {
-        statusEl.textContent = "Sync failed";
-        statusEl.style.color = "#ef4444";
-      }
-    }
-
-    async function pullCloudSync() {
-      try {
-        const res = await fetch(`https://ntfy.sh/${SYNC_CHANNEL}/json?poll=1&since=24h`, {
-          cache: "no-store"
-        });
-        const text = await res.text();
-        const lines = text.trim().split("\n").filter(Boolean);
-        if (lines.length > 0) {
-          const lastEvent = JSON.parse(lines[lines.length - 1]);
-          if (lastEvent && lastEvent.message) {
-            const state = JSON.parse(lastEvent.message);
-            applyStateObject(state);
-            buildInputs();
-            renderPitch();
-          }
-        }
-      } catch (e) {}
-    }
-
-    async function initApp() {
-      const params = new URLSearchParams(window.location.search);
-      const isObs = params.get("obs") === "1";
-
-      if (isObs) {
-        document.body.classList.add("obs-mode");
-      }
-
-      const saved = localStorage.getItem("kranky_starting_11_v5");
-      if (saved) {
-        try {
-          applyStateObject(JSON.parse(saved));
-        } catch (e) {}
-      }
-
-      buildInputs();
-      renderPitch();
-
-      if (isObs) {
-        await pullCloudSync();
-      }
-    }
-
-    function copyObsUrl() {
-      const fixedUrl = `${window.location.origin}${window.location.pathname}?obs=1`;
-      navigator.clipboard.writeText(fixedUrl);
-      alert("Copied Fixed OBS URL:\n" + fixedUrl + "\n\nPaste this ONCE into OBS Properties. From now on, just click 'Sync to OBS' here and hit 'Refresh' in OBS!");
-    }
-
-    initApp();
-  </script>
-</body>
-</html>
+        { pos: "GK", x: 50, y:
