@@ -30,6 +30,25 @@
       overflow: hidden;
     }
 
+    body.overlay-mode #controlHeader,
+    body.overlay-mode #editorColumn {
+      display: none !important;
+    }
+
+    body.overlay-mode #mainWorkspace {
+      max-width: none;
+      width: 1920px;
+      height: 1080px;
+      padding: 0 60px 0 0;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    body.overlay-mode #graphicColumn {
+      width: auto;
+    }
+
     .font-display {
       font-family: 'Oswald', sans-serif;
       letter-spacing: 0.03em;
@@ -195,7 +214,7 @@
       font-weight: 700;
       color: #ffffff;
       white-space: nowrap;
-      max-width: 105px;
+      max-width: 110px;
       overflow: hidden;
       text-overflow: ellipsis;
       text-align: center;
@@ -213,7 +232,6 @@
       pointer-events: none;
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #0b1120; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
@@ -232,7 +250,7 @@
             <h1 class="font-display text-lg font-bold tracking-wide text-white uppercase">Kranky Starting 11 Studio</h1>
             <span id="syncBadge" class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              Cloud Sync Ready
+              <span id="syncText">Live Cloud Sync Ready</span>
             </span>
           </div>
           <p class="text-xs text-slate-400">Live Broadcast Control Deck &amp; OBS Real-Time Overlay</p>
@@ -247,21 +265,21 @@
             title="Channel ID shared between Control Deck and OBS" />
         </div>
 
-        <button id="copyObsBtn"
+        <button id="copyObsBtn" type="button"
           class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 active:scale-[0.99] text-white text-xs font-bold shadow-lg shadow-indigo-950/50 transition cursor-pointer">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
           <span id="copyObsLabel">Copy OBS Overlay URL</span>
         </button>
 
-        <button id="pushNowBtn"
+        <button id="pushNowBtn" type="button"
           class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
           Force Sync
         </button>
 
-        <button id="sampleBtn"
+        <button id="sampleBtn" type="button"
           class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold transition cursor-pointer">
-          Sample XI
+          Jamaica XI
         </button>
       </div>
     </div>
@@ -269,15 +287,15 @@
 
   <!-- MAIN WORKSPACE -->
   <main id="mainWorkspace" class="max-w-[1440px] mx-auto p-5 grid grid-cols-1 lg:grid-cols-12 gap-6">
-    <!-- LEFT COLUMN: LIVE GRAPHIC CARD (This exact card is rendered in OBS overlay mode) -->
+    <!-- LEFT COLUMN: LIVE GRAPHIC CARD -->
     <div id="graphicColumn" class="lg:col-span-6 flex flex-col items-center">
       <div id="broadcastCard" class="w-full max-w-[600px] rounded-2xl bg-[#0b101b] border border-slate-800/90 p-4 shadow-2xl">
         <!-- Graphic Header -->
         <div class="flex items-center justify-between mb-3 px-1">
           <div class="flex items-center gap-3">
             <div id="crestBadge" class="w-10 h-10 rounded-lg flex items-center justify-center font-display font-bold text-base shadow-md border border-white/20"
-              style="background-color: #d9f99d; color: #090d16;">
-              AC
+              style="background-color: #facc15; color: #090d16;">
+              JM
             </div>
             <div>
               <div class="flex items-center gap-2">
@@ -285,7 +303,7 @@
                 <span id="headerFormation" class="text-[11px] font-bold text-slate-400">4-3-3</span>
               </div>
               <h2 id="headerClubName" class="font-display text-2xl font-bold uppercase tracking-wide text-white leading-tight">
-                ATHLETIC CLUB FC
+                JAMAICA REGGAE BOYZ
               </h2>
             </div>
           </div>
@@ -331,9 +349,9 @@
       </div>
     </div>
 
-    <!-- RIGHT COLUMN: CONTROLS & ROSTER EDITOR (Hidden in ?mode=overlay) -->
+    <!-- RIGHT COLUMN: CONTROLS & ROSTER EDITOR -->
     <div id="editorColumn" class="lg:col-span-6 space-y-5">
-      <!-- Formation & Theme Card -->
+      <!-- 1. Formation & Theme Card -->
       <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-5">
         <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-3.5">1. Formation &amp; Pitch Theme</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -360,13 +378,13 @@
         </div>
       </div>
 
-      <!-- Club & Kit Customization -->
+      <!-- 2. Club & Kit Customization -->
       <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-5">
         <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-3.5">2. Club Identity &amp; Kit Colors</h3>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
           <div class="sm:col-span-2">
             <label class="block text-[11px] font-semibold text-slate-400 mb-1">Club / National Team Name</label>
-            <input id="clubNameInput" type="text" value="ATHLETIC CLUB FC"
+            <input id="clubNameInput" type="text" value="JAMAICA REGGAE BOYZ"
               class="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-sm font-bold text-white focus:outline-none focus:border-amber-400" />
           </div>
           <div>
@@ -379,7 +397,7 @@
         <div class="grid grid-cols-3 gap-3 mb-4">
           <div class="bg-slate-950 border border-slate-800 rounded-lg p-2.5 flex items-center justify-between">
             <span class="text-xs font-semibold text-slate-300">Outfield Kit</span>
-            <input id="kitColorInput" type="color" value="#d9f99d" class="w-7 h-7 rounded cursor-pointer bg-transparent border-0" />
+            <input id="kitColorInput" type="color" value="#facc15" class="w-7 h-7 rounded cursor-pointer bg-transparent border-0" />
           </div>
           <div class="bg-slate-950 border border-slate-800 rounded-lg p-2.5 flex items-center justify-between">
             <span class="text-xs font-semibold text-slate-300">Number Text</span>
@@ -387,7 +405,7 @@
           </div>
           <div class="bg-slate-950 border border-slate-800 rounded-lg p-2.5 flex items-center justify-between">
             <span class="text-xs font-semibold text-slate-300">GK Kit</span>
-            <input id="gkColorInput" type="color" value="#facc15" class="w-7 h-7 rounded cursor-pointer bg-transparent border-0" />
+            <input id="gkColorInput" type="color" value="#10b981" class="w-7 h-7 rounded cursor-pointer bg-transparent border-0" />
           </div>
         </div>
 
@@ -403,4 +421,347 @@
             Red / White
           </button>
           <button type="button" onclick="applyPreset('ATHLETIC CLUB FC', '#d9f99d', '#090d16', '#facc15')"
-            class="px-2.5 py-1 rounded-md bg-lime-400/15 border border-lime-400/40 text-lime-300 text-xs font-
+            class="px-2.5 py-1 rounded-md bg-lime-400/15 border border-lime-400/40 text-lime-300 text-xs font-bold hover:bg-lime-400/25 cursor-pointer">
+            Athletic Club
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Starting 11 Roster Editor -->
+      <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-5">
+        <div class="flex items-center justify-between mb-3.5">
+          <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-300">3. Starting 11 Players (Number &amp; Name)</h3>
+          <span class="text-[11px] text-slate-400">Auto-syncs to OBS</span>
+        </div>
+        <div id="rosterEditorGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const FORMATIONS = {
+      "4-3-3": {
+        summary: "1 GK • 4 DEF • 3 MID • 3 FWD",
+        slots: [
+          { pos: "GK", x: 50, y: 88 },
+          { pos: "LB", x: 16, y: 71 }, { pos: "CB", x: 38, y: 74 }, { pos: "CB", x: 62, y: 74 }, { pos: "RB", x: 84, y: 71 },
+          { pos: "CM", x: 26, y: 49 }, { pos: "CDM", x: 50, y: 54 }, { pos: "CM", x: 74, y: 49 },
+          { pos: "LW", x: 18, y: 24 }, { pos: "ST", x: 50, y: 19 }, { pos: "RW", x: 82, y: 24 }
+        ]
+      },
+      "4-2-3-1": {
+        summary: "1 GK • 4 DEF • 5 MID • 1 FWD",
+        slots: [
+          { pos: "GK", x: 50, y: 88 },
+          { pos: "LB", x: 16, y: 72 }, { pos: "CB", x: 38, y: 75 }, { pos: "CB", x: 62, y: 75 }, { pos: "RB", x: 84, y: 72 },
+          { pos: "CDM", x: 35, y: 56 }, { pos: "CDM", x: 65, y: 56 },
+          { pos: "LAM", x: 20, y: 36 }, { pos: "CAM", x: 50, y: 38 }, { pos: "RAM", x: 80, y: 36 },
+          { pos: "ST", x: 50, y: 18 }
+        ]
+      },
+      "3-4-3": {
+        summary: "1 GK • 3 DEF • 4 MID • 3 FWD",
+        slots: [
+          { pos: "GK", x: 50, y: 88 },
+          { pos: "CB", x: 24, y: 73 }, { pos: "CB", x: 50, y: 75 }, { pos: "CB", x: 76, y: 73 },
+          { pos: "LM", x: 15, y: 50 }, { pos: "CM", x: 38, y: 52 }, { pos: "CM", x: 62, y: 52 }, { pos: "RM", x: 85, y: 50 },
+          { pos: "LW", x: 20, y: 24 }, { pos: "ST", x: 50, y: 19 }, { pos: "RW", x: 80, y: 24 }
+        ]
+      },
+      "4-4-2": {
+        summary: "1 GK • 4 DEF • 4 MID • 2 FWD",
+        slots: [
+          { pos: "GK", x: 50, y: 88 },
+          { pos: "LB", x: 16, y: 72 }, { pos: "CB", x: 38, y: 75 }, { pos: "CB", x: 62, y: 75 }, { pos: "RB", x: 84, y: 72 },
+          { pos: "LM", x: 16, y: 48 }, { pos: "CM", x: 38, y: 51 }, { pos: "CM", x: 62, y: 51 }, { pos: "RM", x: 84, y: 48 },
+          { pos: "ST", x: 36, y: 22 }, { pos: "ST", x: 64, y: 22 }
+        ]
+      },
+      "3-5-2": {
+        summary: "1 GK • 3 DEF • 5 MID • 2 FWD",
+        slots: [
+          { pos: "GK", x: 50, y: 88 },
+          { pos: "CB", x: 24, y: 74 }, { pos: "CB", x: 50, y: 76 }, { pos: "CB", x: 76, y: 74 },
+          { pos: "LWB", x: 14, y: 48 }, { pos: "CM", x: 33, y: 52 }, { pos: "CDM", x: 50, y: 56 }, { pos: "CM", x: 67, y: 52 }, { pos: "RWB", x: 86, y: 48 },
+          { pos: "ST", x: 36, y: 22 }, { pos: "ST", x: 64, y: 22 }
+        ]
+      },
+      "5-3-2": {
+        summary: "1 GK • 5 DEF • 3 MID • 2 FWD",
+        slots: [
+          { pos: "GK", x: 50, y: 88 },
+          { pos: "LWB", x: 13, y: 67 }, { pos: "CB", x: 31, y: 74 }, { pos: "CB", x: 50, y: 76 }, { pos: "CB", x: 69, y: 74 }, { pos: "RWB", x: 87, y: 67 },
+          { pos: "CM", x: 28, y: 48 }, { pos: "CDM", x: 50, y: 52 }, { pos: "CM", x: 72, y: 48 },
+          { pos: "ST", x: 36, y: 22 }, { pos: "ST", x: 64, y: 22 }
+        ]
+      }
+    };
+
+    const PITCH_THEMES = {
+      "gold-obsidian": { line: "#eab308", bg: "radial-gradient(circle at 50% 45%, #1c222d 0%, #0d1117 100%)" },
+      "emerald-night": { line: "#34d399", bg: "radial-gradient(circle at 50% 45%, #064e3b 0%, #022c22 100%)" },
+      "crimson-arena": { line: "#f87171", bg: "radial-gradient(circle at 50% 45%, #450a0a 0%, #170505 100%)" },
+      "royal-slate":   { line: "#38bdf8", bg: "radial-gradient(circle at 50% 45%, #0f172a 0%, #020617 100%)" }
+    };
+
+    const JAMAICA_XI = [
+      { num: "1", name: "Blake" },
+      { num: "4", name: "Leigh" },
+      { num: "5", name: "Pinnock" },
+      { num: "6", name: "Lowe" },
+      { num: "2", name: "Lembikisa" },
+      { num: "15", name: "Palmer" },
+      { num: "8", name: "Latibeaudiere" },
+      { num: "10", name: "De Cordova-Reid" },
+      { num: "7", name: "Bailey" },
+      { num: "9", name: "Antonio" },
+      { num: "11", name: "Nicholson" }
+    ];
+
+    let state = {
+      formation: "4-3-3",
+      theme: "gold-obsidian",
+      clubName: "JAMAICA REGGAE BOYZ",
+      tagline: "KRANKY LIVE MATCHDAY",
+      kitColor: "#facc15",
+      textColor: "#090d16",
+      gkColor: "#10b981",
+      players: JSON.parse(JSON.stringify(JAMAICA_XI))
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const isOverlay = params.get("mode") === "overlay";
+    let channel = params.get("channel") || "main-studio";
+    let syncTimer = null;
+
+    if (isOverlay) {
+      document.body.classList.add("overlay-mode");
+    }
+
+    function getTopic() {
+      const clean = (channel || "main-studio").trim().toLowerCase().replace(/[^a-z0-9_-]/g, "-");
+      return `kranky-xi-sync-${clean}`;
+    }
+
+    function renderGraphic() {
+      const f = FORMATIONS[state.formation] || FORMATIONS["4-3-3"];
+      const t = PITCH_THEMES[state.theme] || PITCH_THEMES["gold-obsidian"];
+
+      const pitch = document.getElementById("pitchContainer");
+      pitch.style.setProperty("--pitch-line", t.line);
+      pitch.style.setProperty("--pitch-bg", t.bg);
+
+      document.getElementById("headerFormation").textContent = state.formation;
+      document.getElementById("headerClubName").textContent = state.clubName || "TEAM XI";
+      document.getElementById("tacticalSummary").textContent = f.summary;
+      document.getElementById("broadcastTag").textContent = state.tagline || "KRANKY LIVE MATCHDAY";
+
+      const initials = (state.clubName || "XI")
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(w => w[0])
+        .join("")
+        .toUpperCase() || "XI";
+
+      const crest = document.getElementById("crestBadge");
+      crest.textContent = initials;
+      crest.style.backgroundColor = state.kitColor;
+      crest.style.color = state.textColor;
+
+      const layer = document.getElementById("playersLayer");
+      layer.innerHTML = "";
+
+      f.slots.forEach((slot, idx) => {
+        const p = state.players[idx] || { num: idx + 1, name: `Player ${idx + 1}` };
+        const isGK = slot.pos === "GK";
+        const bg = isGK ? state.gkColor : state.kitColor;
+        const fg = isGK ? "#090d16" : state.textColor;
+
+        const node = document.createElement("div");
+        node.className = "player-node";
+        node.style.left = `${slot.x}%`;
+        node.style.top = `${slot.y}%`;
+        node.innerHTML = `
+          <div class="player-badge" style="background-color:${bg}; color:${fg};">
+            ${p.num || ""}
+            <span class="pos-pill">${slot.pos}</span>
+          </div>
+          <div class="player-name-tag">${p.name || ""}</div>
+        `;
+        layer.appendChild(node);
+      });
+    }
+
+    function buildRosterInputs() {
+      const grid = document.getElementById("rosterEditorGrid");
+      if (!grid) return;
+      const f = FORMATIONS[state.formation] || FORMATIONS["4-3-3"];
+      grid.innerHTML = "";
+
+      state.players.forEach((p, idx) => {
+        const pos = f.slots[idx] ? f.slots[idx].pos : "SUB";
+        const row = document.createElement("div");
+        row.className = "flex items-center gap-2 bg-slate-950 border border-slate-800 rounded-lg p-2";
+        row.innerHTML = `
+          <span class="w-9 text-center text-[10px] font-extrabold uppercase px-1.5 py-1 rounded bg-slate-800 text-amber-400">${pos}</span>
+          <input type="text" value="${p.num}" maxlength="3" placeholder="#"
+            class="w-12 rounded bg-slate-900 border border-slate-700 px-2 py-1 text-xs font-bold text-center text-white focus:outline-none focus:border-amber-400"
+            oninput="updatePlayer(${idx}, 'num', this.value)" />
+          <input type="text" value="${p.name}" placeholder="Player Name"
+            class="flex-1 min-w-0 rounded bg-slate-900 border border-slate-700 px-2.5 py-1 text-xs font-semibold text-white focus:outline-none focus:border-amber-400"
+            oninput="updatePlayer(${idx}, 'name', this.value)" />
+        `;
+        grid.appendChild(row);
+      });
+    }
+
+    function syncInputsFromState() {
+      if (isOverlay) return;
+      document.getElementById("channelInput").value = channel;
+      document.getElementById("formationSelect").value = state.formation;
+      document.getElementById("themeSelect").value = state.theme;
+      document.getElementById("clubNameInput").value = state.clubName;
+      document.getElementById("taglineInput").value = state.tagline;
+      document.getElementById("kitColorInput").value = state.kitColor;
+      document.getElementById("textColorInput").value = state.textColor;
+      document.getElementById("gkColorInput").value = state.gkColor;
+      buildRosterInputs();
+    }
+
+    function updatePlayer(idx, field, val) {
+      state.players[idx][field] = val;
+      renderGraphic();
+      schedulePush();
+    }
+
+    function applyPreset(name, kit, text, gk) {
+      state.clubName = name;
+      state.kitColor = kit;
+      state.textColor = text;
+      state.gkColor = gk;
+      syncInputsFromState();
+      renderGraphic();
+      pushStateNow();
+    }
+
+    function schedulePush() {
+      clearTimeout(syncTimer);
+      syncTimer = setTimeout(pushStateNow, 300);
+    }
+
+    async function pushStateNow() {
+      localStorage.setItem(getTopic(), JSON.stringify(state));
+      const badge = document.getElementById("syncText");
+      if (badge) badge.textContent = "Syncing...";
+      try {
+        await fetch(`https://ntfy.sh/${getTopic()}`, {
+          method: "POST",
+          body: JSON.stringify(state)
+        });
+        if (badge) badge.textContent = "Synced to OBS";
+      } catch (e) {
+        if (badge) badge.textContent = "Local Sync Only";
+      }
+    }
+
+    async function loadInitialCloudState() {
+      const cached = localStorage.getItem(getTopic());
+      if (cached) {
+        try { state = { ...state, ...JSON.parse(cached) }; } catch (e) {}
+      }
+      try {
+        const res = await fetch(`https://ntfy.sh/${getTopic()}/json?poll=1&since=12h`);
+        const text = await res.text();
+        const lines = text.trim().split("\n").filter(Boolean);
+        for (let i = lines.length - 1; i >= 0; i--) {
+          const msg = JSON.parse(lines[i]);
+          if (msg.message) {
+            state = { ...state, ...JSON.parse(msg.message) };
+            break;
+          }
+        }
+      } catch (e) {}
+      syncInputsFromState();
+      renderGraphic();
+    }
+
+    function startOverlayListener() {
+      const es = new EventSource(`https://ntfy.sh/${getTopic()}/sse`);
+      es.onmessage = (e) => {
+        try {
+          const data = JSON.parse(e.data);
+          if (data.message) {
+            state = { ...state, ...JSON.parse(data.message) };
+            renderGraphic();
+          }
+        } catch (err) {}
+      };
+    }
+
+    if (!isOverlay) {
+      document.getElementById("channelInput").addEventListener("change", (e) => {
+        channel = e.target.value || "main-studio";
+        pushStateNow();
+      });
+      document.getElementById("formationSelect").addEventListener("change", (e) => {
+        state.formation = e.target.value;
+        buildRosterInputs();
+        renderGraphic();
+        pushStateNow();
+      });
+      document.getElementById("themeSelect").addEventListener("change", (e) => {
+        state.theme = e.target.value;
+        renderGraphic();
+        pushStateNow();
+      });
+      document.getElementById("clubNameInput").addEventListener("input", (e) => {
+        state.clubName = e.target.value;
+        renderGraphic();
+        schedulePush();
+      });
+      document.getElementById("taglineInput").addEventListener("input", (e) => {
+        state.tagline = e.target.value;
+        renderGraphic();
+        schedulePush();
+      });
+      document.getElementById("kitColorInput").addEventListener("input", (e) => {
+        state.kitColor = e.target.value;
+        renderGraphic();
+        schedulePush();
+      });
+      document.getElementById("textColorInput").addEventListener("input", (e) => {
+        state.textColor = e.target.value;
+        renderGraphic();
+        schedulePush();
+      });
+      document.getElementById("gkColorInput").addEventListener("input", (e) => {
+        state.gkColor = e.target.value;
+        renderGraphic();
+        schedulePush();
+      });
+      document.getElementById("pushNowBtn").addEventListener("click", pushStateNow);
+      document.getElementById("sampleBtn").addEventListener("click", () => {
+        state.players = JSON.parse(JSON.stringify(JAMAICA_XI));
+        applyPreset("JAMAICA REGGAE BOYZ", "#facc15", "#090d16", "#10b981");
+      });
+      document.getElementById("copyObsBtn").addEventListener("click", () => {
+        const base = window.location.href.split("?")[0];
+        const url = `${base}?mode=overlay&channel=${encodeURIComponent(channel)}`;
+        navigator.clipboard.writeText(url);
+        const lbl = document.getElementById("copyObsLabel");
+        lbl.textContent = "Copied OBS URL!";
+        setTimeout(() => lbl.textContent = "Copy OBS Overlay URL", 2500);
+      });
+    }
+
+    loadInitialCloudState().then(() => {
+      if (isOverlay) {
+        startOverlayListener();
+      } else {
+        pushStateNow();
+      }
+    });
+  </script>
+</body>
+</html>
