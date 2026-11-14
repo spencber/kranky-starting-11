@@ -23,6 +23,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
 
     body {
@@ -119,7 +120,7 @@
       margin: 0 auto;
     }
 
-    /* --- 1ST LOOK: SLEEK MATTE-CHARCOAL BROADCAST CARD --- */
+    /* --- SLEEK MATTE-CHARCOAL BROADCAST CARD --- */
     .broadcast-card {
       width: 440px;
       background: #121417;
@@ -182,7 +183,7 @@
       text-transform: uppercase;
     }
 
-    /* --- CLEAN DARK PITCH (NO GREEN TINT) --- */
+    /* --- CLEAN DARK PITCH --- */
     .pitch-wrapper {
       padding: 14px 16px 10px;
       background: #121417;
@@ -246,7 +247,7 @@
       border-bottom: none;
     }
 
-    /* --- PLAYER TOKENS (1ST LOOK) --- */
+    /* --- PLAYER TOKENS --- */
     .player-node {
       position: absolute;
       transform: translate(-50%, -50%);
@@ -294,20 +295,20 @@
       display: inline-block;
     }
 
-    /* SLEEK COMPACT NAMEPLATE (NO LEFT ACCENT BAR) */
+    /* CRISP, HIGH-CONTRAST BROADCAST NAMEPLATE */
     .name-plate {
       margin-top: 6px;
-      padding: 3px 9px;
-      background: rgba(11, 13, 16, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.7px;
-      color: #f8fafc;
+      padding: 4px 10px;
+      background: #05070a;
+      border: 1.5px solid rgba(255, 255, 255, 0.28);
+      border-radius: 5px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      color: #ffffff;
       text-transform: uppercase;
       white-space: nowrap;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.65);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.95);
     }
 
     .graphic-footer {
@@ -318,7 +319,7 @@
       align-items: center;
       font-size: 9.5px;
       font-weight: 700;
-      color: #64748b;
+      color: #94a3b8;
       letter-spacing: 0.9px;
       text-transform: uppercase;
     }
@@ -481,7 +482,7 @@
       border-color: rgba(250, 204, 21, 0.25) !important;
     }
 
-    /* --- OBS CLEAN MODE (?obs=1) --- */
+    /* --- OBS CLEAN MODE (?obs=1) WITH AUTOMATIC HD SCALING --- */
     body.obs-mode {
       background: transparent !important;
       overflow: hidden;
@@ -497,6 +498,7 @@
     }
     body.obs-mode .broadcast-card {
       box-shadow: none;
+      transform-origin: top left;
     }
   </style>
 </head>
@@ -515,7 +517,7 @@
   </header>
 
   <main class="workspace">
-    <!-- LEFT: BROADCAST GRAPHIC (1ST LOOK) -->
+    <!-- LEFT: BROADCAST GRAPHIC -->
     <section class="broadcast-card" id="broadcastGraphic">
       <div class="graphic-header">
         <div class="header-left">
@@ -1003,12 +1005,21 @@
       } catch (e) {}
     }
 
+    function adjustObsScale() {
+      const card = document.getElementById("broadcastGraphic");
+      if (!card || !document.body.classList.contains("obs-mode")) return;
+      const scale = window.innerWidth / 440;
+      card.style.transform = scale > 0.5 ? `scale(${scale})` : "none";
+    }
+
     async function initApp() {
       const params = new URLSearchParams(window.location.search);
       const isObs = params.get("obs") === "1";
 
       if (isObs) {
         document.body.classList.add("obs-mode");
+        adjustObsScale();
+        window.addEventListener("resize", adjustObsScale);
       }
 
       const saved = localStorage.getItem("kranky_starting_11_v6");
