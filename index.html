@@ -108,7 +108,6 @@
       position: relative;
     }
 
-    /* Header with Jamaican Flag Accent & Broadcast Soul */
     .graphic-header {
       position: relative;
       padding: 14px 18px 14px 22px;
@@ -119,7 +118,6 @@
       justify-content: space-between;
     }
 
-    /* Jamaican Flag Vertical Ribbon */
     .graphic-header::before {
       content: "";
       position: absolute;
@@ -193,7 +191,7 @@
       margin-top: 2px;
     }
 
-    /* --- STADIUM PITCH WITH MOWED GRASS & FLOODLIGHT GLOW --- */
+    /* --- STADIUM PITCH --- */
     .pitch-wrapper {
       padding: 14px;
       background: #080c12;
@@ -218,7 +216,6 @@
       box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.85);
     }
 
-    /* Crisp Pitch Markings */
     .pitch-line-half {
       position: absolute;
       top: 50%;
@@ -296,7 +293,6 @@
         0 8px 16px rgba(0, 0, 0, 0.85);
     }
 
-    /* Optional Position Badge (Hidden by default for clean look) */
     .pos-pill {
       display: none;
       margin-top: -6px;
@@ -315,7 +311,6 @@
       display: inline-block;
     }
 
-    /* TV Broadcast Nameplate Pill */
     .name-plate {
       margin-top: 5px;
       padding: 3px 8px;
@@ -552,139 +547,117 @@
   </main>
 
   <script>
-    /* STRAIGHT, UNMISTAKABLE TACTICAL LINES (NO OVER-CURVING) */
     const FORMATIONS = {
       "4-2-3-1": [
         { pos: "GK", x: 50, y: 90 },
-        /* Flat Back 4 */
         { pos: "LB", x: 15, y: 74 },
         { pos: "CB", x: 38, y: 75 },
         { pos: "CB", x: 62, y: 75 },
         { pos: "RB", x: 85, y: 74 },
-        /* Flat Double Pivot (2) */
         { pos: "CDM", x: 35, y: 56 },
         { pos: "CDM", x: 65, y: 56 },
-        /* Flat Attacking Band (3) */
         { pos: "LW", x: 18, y: 36 },
         { pos: "CAM", x: 50, y: 36 },
         { pos: "RW", x: 82, y: 36 },
-        /* Lone Striker (1) */
         { pos: "ST", x: 50, y: 15 }
       ],
       "4-3-3": [
         { pos: "GK", x: 50, y: 90 },
-        /* Flat Back 4 */
         { pos: "LB", x: 15, y: 74 },
         { pos: "CB", x: 38, y: 75 },
         { pos: "CB", x: 62, y: 75 },
         { pos: "RB", x: 85, y: 74 },
-        /* Flat Midfield 3 */
         { pos: "CM", x: 24, y: 49 },
         { pos: "CDM", x: 50, y: 50 },
         { pos: "CM", x: 76, y: 49 },
-        /* Front 3 */
         { pos: "LW", x: 18, y: 21 },
         { pos: "ST", x: 50, y: 18 },
         { pos: "RW", x: 82, y: 21 }
       ],
       "3-4-3": [
         { pos: "GK", x: 50, y: 90 },
-        /* Flat Back 3 */
         { pos: "CB", x: 24, y: 75 },
         { pos: "CB", x: 50, y: 75 },
         { pos: "CB", x: 76, y: 75 },
-        /* Flat Midfield 4 */
         { pos: "LWB", x: 14, y: 49 },
         { pos: "CM", x: 38, y: 49 },
         { pos: "CM", x: 62, y: 49 },
         { pos: "RWB", x: 86, y: 49 },
-        /* Front 3 */
         { pos: "LW", x: 20, y: 21 },
         { pos: "ST", x: 50, y: 18 },
         { pos: "RW", x: 80, y: 21 }
       ],
       "3-5-2": [
         { pos: "GK", x: 50, y: 90 },
-        /* Flat Back 3 */
         { pos: "CB", x: 24, y: 75 },
         { pos: "CB", x: 50, y: 75 },
         { pos: "CB", x: 76, y: 75 },
-        /* Flat Midfield 5 */
         { pos: "LWB", x: 12, y: 49 },
         { pos: "CM", x: 31, y: 49 },
         { pos: "CDM", x: 50, y: 50 },
         { pos: "CM", x: 69, y: 49 },
         { pos: "RWB", x: 88, y: 49 },
-        /* Flat Front 2 */
         { pos: "ST", x: 36, y: 19 },
         { pos: "ST", x: 64, y: 19 }
       ],
       "4-4-2": [
         { pos: "GK", x: 50, y: 90 },
-        /* Flat Back 4 */
         { pos: "LB", x: 15, y: 74 },
         { pos: "CB", x: 38, y: 75 },
         { pos: "CB", x: 62, y: 75 },
         { pos: "RB", x: 85, y: 74 },
-        /* Flat Midfield 4 */
         { pos: "LM", x: 15, y: 48 },
         { pos: "CM", x: 38, y: 48 },
         { pos: "CM", x: 62, y: 48 },
         { pos: "RM", x: 85, y: 48 },
-        /* Flat Front 2 */
         { pos: "ST", x: 36, y: 19 },
         { pos: "ST", x: 64, y: 19 }
       ],
       "5-3-2": [
         { pos: "GK", x: 50, y: 90 },
-        /* Flat Back 5 */
         { pos: "LWB", x: 12, y: 73 },
         { pos: "CB", x: 31, y: 75 },
         { pos: "CB", x: 50, y: 75 },
         { pos: "CB", x: 69, y: 75 },
         { pos: "RWB", x: 88, y: 73 },
-        /* Flat Midfield 3 */
         { pos: "CM", x: 26, y: 48 },
         { pos: "CDM", x: 50, y: 48 },
         { pos: "CM", x: 74, y: 48 },
-        /* Flat Front 2 */
         { pos: "ST", x: 36, y: 19 },
         { pos: "ST", x: 64, y: 19 }
       ],
       "4-1-4-1": [
         { pos: "GK", x: 50, y: 90 },
-        /* Flat Back 4 */
         { pos: "LB", x: 15, y: 75 },
         { pos: "CB", x: 38, y: 76 },
         { pos: "CB", x: 62, y: 76 },
         { pos: "RB", x: 85, y: 75 },
-        /* Single Pivot (1) */
         { pos: "CDM", x: 50, y: 58 },
-        /* Flat Midfield 4 */
         { pos: "LM", x: 15, y: 38 },
         { pos: "CM", x: 38, y: 38 },
         { pos: "CM", x: 62, y: 38 },
         { pos: "RM", x: 85, y: 38 },
-        /* Lone Striker (1) */
         { pos: "ST", x: 50, y: 15 }
       ],
       "4-3-2-1": [
         { pos: "GK", x: 50, y: 90 },
-        /* Flat Back 4 */
         { pos: "LB", x: 15, y: 75 },
         { pos: "CB", x: 38, y: 76 },
         { pos: "CB", x: 62, y: 76 },
         { pos: "RB", x: 85, y: 75 },
-        /* Flat Midfield 3 */
         { pos: "CM", x: 25, y: 55 },
         { pos: "CDM", x: 50, y: 55 },
         { pos: "CM", x: 75, y: 55 },
-        /* Flat Dual CAMs (2) */
         { pos: "CAM", x: 34, y: 35 },
         { pos: "CAM", x: 66, y: 35 },
-        /* Lone Striker (1) */
         { pos: "ST", x: 50, y: 15 }
       ]
+    };
+
+    let currentColors = {
+      primary: "#eab308",
+      text: "#090d16",
+      gk: "#10b981"
     };
 
     let squad = [
@@ -734,6 +707,7 @@
     }
 
     function applyPreset(primary, text, gk) {
+      currentColors = { primary, text, gk };
       document.documentElement.style.setProperty("--kit-primary", primary);
       document.documentElement.style.setProperty("--kit-text", text);
       document.documentElement.style.setProperty("--gk-primary", gk);
@@ -749,77 +723,4 @@
         document.getElementById("teamNameInput").value || "TEAM LINEUP";
       document.getElementById("badgeText").textContent =
         document.getElementById("badgeInput").value || "XI";
-      document.getElementById("displayFormation").textContent = `${formationKey} • STARTING XI`;
-
-      layer.innerHTML = "";
-
-      squad.forEach((player, i) => {
-        const spot = coords[i];
-        const node = document.createElement("div");
-        node.className = "player-node";
-        node.style.left = `${spot.x}%`;
-        node.style.top = `${spot.y}%`;
-
-        const isGk = i === 0 ? "gk" : "";
-        node.innerHTML = `
-          <div class="jersey-token ${isGk}">${player.num}</div>
-          <div class="pos-pill">${spot.pos}</div>
-          <div class="name-plate">${player.name}</div>
-        `;
-        layer.appendChild(node);
-      });
-
-      saveState();
-    }
-
-    function saveState() {
-      const state = {
-        team: document.getElementById("teamNameInput").value,
-        badge: document.getElementById("badgeInput").value,
-        formation: document.getElementById("formationSelect").value,
-        squad
-      };
-      localStorage.setItem("kranky_starting_11", JSON.stringify(state));
-    }
-
-    function loadState() {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get("obs") === "1") {
-        document.body.classList.add("obs-mode");
-      }
-
-      const saved = localStorage.getItem("kranky_starting_11");
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          if (parsed.team) document.getElementById("teamNameInput").value = parsed.team;
-          if (parsed.badge) document.getElementById("badgeInput").value = parsed.badge;
-          if (parsed.formation && FORMATIONS[parsed.formation]) {
-            document.getElementById("formationSelect").value = parsed.formation;
-          }
-          if (Array.isArray(parsed.squad) && parsed.squad.length === 11) {
-            squad = parsed.squad;
-          }
-        } catch (e) {}
-      }
-    }
-
-    function copyObsUrl() {
-      const url = new URL(window.location.href);
-      url.searchParams.set("obs", "1");
-      navigator.clipboard.writeText(url.toString());
-      alert("Copied clean OBS Browser Source URL:\n" + url.toString());
-    }
-
-    window.addEventListener("storage", () => {
-      loadState();
-      buildInputs();
-      renderPitch();
-    });
-
-    loadState();
-    buildInputs();
-    renderPitch();
-  </script>
-</body>
-</html>
+      document.getElementById("displayFormation").text
