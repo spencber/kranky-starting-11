@@ -87,6 +87,15 @@
       color: white;
     }
 
+    .btn-ghost {
+      background: #1e293b;
+      color: #cbd5e1;
+    }
+
+    .btn-ghost:hover {
+      background: #334155;
+    }
+
     /* --- MAIN LAYOUT --- */
     .workspace {
       display: grid;
@@ -353,13 +362,19 @@
       padding: 18px;
     }
 
+    .panel-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
     .panel-title {
       font-size: 12px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       color: var(--kit-primary);
-      margin-bottom: 14px;
     }
 
     .grid-2 {
@@ -388,6 +403,10 @@
       font-weight: 600;
     }
 
+    input::placeholder {
+      color: #475569;
+    }
+
     .preset-row {
       display: flex;
       gap: 8px;
@@ -405,17 +424,25 @@
       cursor: pointer;
     }
 
-    .player-inputs-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+    /* Ordered 1 -> 11 List (GK -> Defenders -> Midfielders -> Forwards) */
+    .player-inputs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .player-input-row {
       display: grid;
-      grid-template-columns: 44px 48px 1fr;
-      gap: 6px;
+      grid-template-columns: 28px 54px 56px 1fr;
+      gap: 8px;
       align-items: center;
+    }
+
+    .slot-index {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--kit-primary);
+      text-align: center;
     }
 
     .pos-tag-static {
@@ -426,6 +453,10 @@
       background: #141c26;
       padding: 8px 4px;
       border-radius: 5px;
+    }
+
+    .num-input {
+      text-align: center;
     }
 
     /* --- OBS CLEAN MODE (?obs=1) --- */
@@ -464,362 +495,4 @@
     <!-- LEFT: BROADCAST GRAPHIC -->
     <section class="broadcast-card" id="broadcastGraphic">
       <div class="graphic-header">
-        <div class="header-left">
-          <div class="team-badge" id="badgeText">JR</div>
-          <div class="team-meta">
-            <div class="eyebrow">Starting Lineup</div>
-            <div class="team-title" id="displayTeamName">JAMAICA REGGAE BOYZ</div>
-          </div>
-        </div>
-        <div class="header-right">
-          <div class="tactical-label">Tactical Breakdown</div>
-          <div class="formation-readout" id="displayFormation">4-2-3-1 • STARTING XI</div>
-        </div>
-      </div>
-
-      <div class="pitch-wrapper">
-        <div class="pitch" id="pitchCanvas">
-          <div class="pitch-line-half"></div>
-          <div class="pitch-circle-center"></div>
-          <div class="pitch-box-top"></div>
-          <div class="pitch-box-bottom"></div>
-          <div id="playersLayer"></div>
-        </div>
-      </div>
-
-      <div class="graphic-footer">
-        <span>REGGAE BOYZ MATCHDAY</span>
-        <span>KRANKY LIVE BROADCAST</span>
-      </div>
-    </section>
-
-    <!-- RIGHT: STUDIO CONTROLS -->
-    <section class="controls-column">
-      <div class="panel-card">
-        <div class="panel-title">1. Formation & Broadcast Style</div>
-        <div class="grid-2">
-          <div>
-            <label>Tactical Formation</label>
-            <select id="formationSelect" onchange="handleFormationChange()">
-              <option value="4-2-3-1">4-2-3-1 (Balanced)</option>
-              <option value="4-3-3">4-3-3 (Attacking)</option>
-              <option value="3-4-3">3-4-3 (Wide Wingbacks)</option>
-              <option value="3-5-2">3-5-2 (Midfield Control)</option>
-              <option value="4-4-2">4-4-2 (Classic)</option>
-              <option value="5-3-2">5-3-2 (Low Block / Counter)</option>
-              <option value="4-1-4-1">4-1-4-1 (Holding Pivot)</option>
-              <option value="4-3-2-1">4-3-2-1 (Christmas Tree)</option>
-            </select>
-          </div>
-          <div style="display:flex; align-items:flex-end; padding-bottom:6px;">
-            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#e2e8f0;">
-              <input type="checkbox" id="togglePosCheck" onchange="togglePositions()" />
-              Show CB / RB Tags on Pitch
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel-card">
-        <div class="panel-title">2. Team Identity & Kit Theme</div>
-        <div class="grid-2">
-          <div>
-            <label>Club / National Team Name</label>
-            <input type="text" id="teamNameInput" value="JAMAICA REGGAE BOYZ" oninput="renderPitch()" />
-          </div>
-          <div>
-            <label>Badge Initials</label>
-            <input type="text" id="badgeInput" value="JR" maxlength="3" oninput="renderPitch()" />
-          </div>
-        </div>
-        <div class="preset-row">
-          <button class="preset-btn" onclick="applyPreset('#eab308', '#090d16', '#10b981')">Jamaica Gold / Green</button>
-          <button class="preset-btn" onclick="applyPreset('#ef4444', '#ffffff', '#0ea5e9')">Arsenal Red / White</button>
-          <button class="preset-btn" onclick="applyPreset('#38bdf8', '#090d16', '#f59e0b')">City Sky Blue</button>
-        </div>
-      </div>
-
-      <div class="panel-card">
-        <div class="panel-title">3. Starting 11 Players (Number & Name)</div>
-        <div class="player-inputs-grid" id="playerInputsContainer"></div>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    const FORMATIONS = {
-      "4-2-3-1": [
-        { pos: "GK", x: 50, y: 90 },
-        { pos: "LB", x: 15, y: 74 },
-        { pos: "CB", x: 38, y: 75 },
-        { pos: "CB", x: 62, y: 75 },
-        { pos: "RB", x: 85, y: 74 },
-        { pos: "CDM", x: 35, y: 56 },
-        { pos: "CDM", x: 65, y: 56 },
-        { pos: "LW", x: 18, y: 36 },
-        { pos: "CAM", x: 50, y: 36 },
-        { pos: "RW", x: 82, y: 36 },
-        { pos: "ST", x: 50, y: 15 }
-      ],
-      "4-3-3": [
-        { pos: "GK", x: 50, y: 90 },
-        { pos: "LB", x: 15, y: 74 },
-        { pos: "CB", x: 38, y: 75 },
-        { pos: "CB", x: 62, y: 75 },
-        { pos: "RB", x: 85, y: 74 },
-        { pos: "CM", x: 24, y: 49 },
-        { pos: "CDM", x: 50, y: 50 },
-        { pos: "CM", x: 76, y: 49 },
-        { pos: "LW", x: 18, y: 21 },
-        { pos: "ST", x: 50, y: 18 },
-        { pos: "RW", x: 82, y: 21 }
-      ],
-      "3-4-3": [
-        { pos: "GK", x: 50, y: 90 },
-        { pos: "CB", x: 24, y: 75 },
-        { pos: "CB", x: 50, y: 75 },
-        { pos: "CB", x: 76, y: 75 },
-        { pos: "LWB", x: 14, y: 49 },
-        { pos: "CM", x: 38, y: 49 },
-        { pos: "CM", x: 62, y: 49 },
-        { pos: "RWB", x: 86, y: 49 },
-        { pos: "LW", x: 20, y: 21 },
-        { pos: "ST", x: 50, y: 18 },
-        { pos: "RW", x: 80, y: 21 }
-      ],
-      "3-5-2": [
-        { pos: "GK", x: 50, y: 90 },
-        { pos: "CB", x: 24, y: 75 },
-        { pos: "CB", x: 50, y: 75 },
-        { pos: "CB", x: 76, y: 75 },
-        { pos: "LWB", x: 12, y: 49 },
-        { pos: "CM", x: 31, y: 49 },
-        { pos: "CDM", x: 50, y: 50 },
-        { pos: "CM", x: 69, y: 49 },
-        { pos: "RWB", x: 88, y: 49 },
-        { pos: "ST", x: 36, y: 19 },
-        { pos: "ST", x: 64, y: 19 }
-      ],
-      "4-4-2": [
-        { pos: "GK", x: 50, y: 90 },
-        { pos: "LB", x: 15, y: 74 },
-        { pos: "CB", x: 38, y: 75 },
-        { pos: "CB", x: 62, y: 75 },
-        { pos: "RB", x: 85, y: 74 },
-        { pos: "LM", x: 15, y: 48 },
-        { pos: "CM", x: 38, y: 48 },
-        { pos: "CM", x: 62, y: 48 },
-        { pos: "RM", x: 85, y: 48 },
-        { pos: "ST", x: 36, y: 19 },
-        { pos: "ST", x: 64, y: 19 }
-      ],
-      "5-3-2": [
-        { pos: "GK", x: 50, y: 90 },
-        { pos: "LWB", x: 12, y: 73 },
-        { pos: "CB", x: 31, y: 75 },
-        { pos: "CB", x: 50, y: 75 },
-        { pos: "CB", x: 69, y: 75 },
-        { pos: "RWB", x: 88, y: 73 },
-        { pos: "CM", x: 26, y: 48 },
-        { pos: "CDM", x: 50, y: 48 },
-        { pos: "CM", x: 74, y: 48 },
-        { pos: "ST", x: 36, y: 19 },
-        { pos: "ST", x: 64, y: 19 }
-      ],
-      "4-1-4-1": [
-        { pos: "GK", x: 50, y: 90 },
-        { pos: "LB", x: 15, y: 75 },
-        { pos: "CB", x: 38, y: 76 },
-        { pos: "CB", x: 62, y: 76 },
-        { pos: "RB", x: 85, y: 75 },
-        { pos: "CDM", x: 50, y: 58 },
-        { pos: "LM", x: 15, y: 38 },
-        { pos: "CM", x: 38, y: 38 },
-        { pos: "CM", x: 62, y: 38 },
-        { pos: "RM", x: 85, y: 38 },
-        { pos: "ST", x: 50, y: 15 }
-      ],
-      "4-3-2-1": [
-        { pos: "GK", x: 50, y: 90 },
-        { pos: "LB", x: 15, y: 75 },
-        { pos: "CB", x: 38, y: 76 },
-        { pos: "CB", x: 62, y: 76 },
-        { pos: "RB", x: 85, y: 75 },
-        { pos: "CM", x: 25, y: 55 },
-        { pos: "CDM", x: 50, y: 55 },
-        { pos: "CM", x: 75, y: 55 },
-        { pos: "CAM", x: 34, y: 35 },
-        { pos: "CAM", x: 66, y: 35 },
-        { pos: "ST", x: 50, y: 15 }
-      ]
-    };
-
-    let currentColors = {
-      primary: "#eab308",
-      text: "#090d16",
-      gk: "#10b981"
-    };
-
-    let squad = [
-      { num: "1", name: "Blake" },
-      { num: "4", name: "Leigh" },
-      { num: "5", name: "Pinnock" },
-      { num: "6", name: "Lowe" },
-      { num: "2", name: "Lembikisa" },
-      { num: "15", name: "Palmer" },
-      { num: "8", name: "Latibeaudiere" },
-      { num: "7", name: "Bailey" },
-      { num: "10", name: "De Cordova-Reid" },
-      { num: "11", name: "Nicholson" },
-      { num: "9", name: "Antonio" }
-    ];
-
-    function buildInputs() {
-      const container = document.getElementById("playerInputsContainer");
-      const formation = FORMATIONS[document.getElementById("formationSelect").value];
-      container.innerHTML = "";
-
-      squad.forEach((player, idx) => {
-        const row = document.createElement("div");
-        row.className = "player-input-row";
-        row.innerHTML = `
-          <div class="pos-tag-static">${formation[idx].pos}</div>
-          <input type="text" value="${player.num}" oninput="updatePlayer(${idx}, 'num', this.value)" />
-          <input type="text" value="${player.name}" oninput="updatePlayer(${idx}, 'name', this.value)" />
-        `;
-        container.appendChild(row);
-      });
-    }
-
-    function updatePlayer(index, field, value) {
-      squad[index][field] = value;
-      renderPitch();
-    }
-
-    function handleFormationChange() {
-      buildInputs();
-      renderPitch();
-    }
-
-    function togglePositions() {
-      const show = document.getElementById("togglePosCheck").checked;
-      document.getElementById("pitchCanvas").classList.toggle("show-pos", show);
-    }
-
-    function applyPreset(primary, text, gk) {
-      currentColors = { primary, text, gk };
-      document.documentElement.style.setProperty("--kit-primary", primary);
-      document.documentElement.style.setProperty("--kit-text", text);
-      document.documentElement.style.setProperty("--gk-primary", gk);
-      saveState();
-    }
-
-    function renderPitch() {
-      const formationKey = document.getElementById("formationSelect").value;
-      const coords = FORMATIONS[formationKey];
-      const layer = document.getElementById("playersLayer");
-
-      document.getElementById("displayTeamName").textContent =
-        document.getElementById("teamNameInput").value || "TEAM LINEUP";
-      document.getElementById("badgeText").textContent =
-        document.getElementById("badgeInput").value || "XI";
-      document.getElementById("displayFormation").textContent = `${formationKey} • STARTING XI`;
-
-      layer.innerHTML = "";
-
-      squad.forEach((player, i) => {
-        const spot = coords[i];
-        const node = document.createElement("div");
-        node.className = "player-node";
-        node.style.left = `${spot.x}%`;
-        node.style.top = `${spot.y}%`;
-
-        const isGk = i === 0 ? "gk" : "";
-        node.innerHTML = `
-          <div class="jersey-token ${isGk}">${player.num}</div>
-          <div class="pos-pill">${spot.pos}</div>
-          <div class="name-plate">${player.name}</div>
-        `;
-        layer.appendChild(node);
-      });
-
-      saveState();
-    }
-
-    function getStateObject() {
-      return {
-        team: document.getElementById("teamNameInput").value,
-        badge: document.getElementById("badgeInput").value,
-        formation: document.getElementById("formationSelect").value,
-        showPos: document.getElementById("togglePosCheck").checked,
-        colors: currentColors,
-        squad
-      };
-    }
-
-    function applyStateObject(parsed) {
-      if (!parsed) return;
-      if (parsed.team) document.getElementById("teamNameInput").value = parsed.team;
-      if (parsed.badge) document.getElementById("badgeInput").value = parsed.badge;
-      if (parsed.formation && FORMATIONS[parsed.formation]) {
-        document.getElementById("formationSelect").value = parsed.formation;
-      }
-      if (typeof parsed.showPos === "boolean") {
-        document.getElementById("togglePosCheck").checked = parsed.showPos;
-        document.getElementById("pitchCanvas").classList.toggle("show-pos", parsed.showPos);
-      }
-      if (parsed.colors) {
-        currentColors = parsed.colors;
-        document.documentElement.style.setProperty("--kit-primary", parsed.colors.primary);
-        document.documentElement.style.setProperty("--kit-text", parsed.colors.text);
-        document.documentElement.style.setProperty("--gk-primary", parsed.colors.gk);
-      }
-      if (Array.isArray(parsed.squad) && parsed.squad.length === 11) {
-        squad = parsed.squad;
-      }
-    }
-
-    function saveState() {
-      localStorage.setItem("kranky_starting_11", JSON.stringify(getStateObject()));
-    }
-
-    function loadState() {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get("obs") === "1") {
-        document.body.classList.add("obs-mode");
-      }
-
-      // 1. Prioritize data embedded directly in the URL (for OBS Browser Source)
-      const dataParam = params.get("data");
-      if (dataParam) {
-        try {
-          const decoded = JSON.parse(decodeURIComponent(escape(atob(dataParam))));
-          applyStateObject(decoded);
-          return;
-        } catch (e) {}
-      }
-
-      // 2. Fallback to browser localStorage
-      const saved = localStorage.getItem("kranky_starting_11");
-      if (saved) {
-        try {
-          applyStateObject(JSON.parse(saved));
-        } catch (e) {}
-      }
-    }
-
-    function copyObsUrl() {
-      const url = new URL(window.location.origin + window.location.pathname);
-      url.searchParams.set("obs", "1");
-      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(getStateObject()))));
-      url.searchParams.set("data", encoded);
-      navigator.clipboard.writeText(url.toString());
-      alert("Copied OBS Overlay URL with your exact lineup & formation! Paste it into your OBS Browser Source URL.");
-    }
-
-    loadState();
-    buildInputs();
-    renderPitch();
-  </script>
-</body>
-</html>
+        <div class="header-left
