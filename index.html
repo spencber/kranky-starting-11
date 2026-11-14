@@ -718,4 +718,321 @@
         { pos: "ST", x: 64, y: 19 }
       ],
       "5-3-2": [
-        { pos: "GK", x: 50, y:
+        { pos: "GK", x: 50, y: 90 },
+        { pos: "LWB", x: 12, y: 73 },
+        { pos: "CB", x: 31, y: 75 },
+        { pos: "CB", x: 50, y: 75 },
+        { pos: "CB", x: 69, y: 75 },
+        { pos: "RWB", x: 88, y: 73 },
+        { pos: "CM", x: 26, y: 48 },
+        { pos: "CDM", x: 50, y: 48 },
+        { pos: "CM", x: 74, y: 48 },
+        { pos: "ST", x: 36, y: 19 },
+        { pos: "ST", x: 64, y: 19 }
+      ],
+      "4-1-4-1": [
+        { pos: "GK", x: 50, y: 90 },
+        { pos: "LB", x: 15, y: 75 },
+        { pos: "CB", x: 38, y: 76 },
+        { pos: "CB", x: 62, y: 76 },
+        { pos: "RB", x: 85, y: 75 },
+        { pos: "CDM", x: 50, y: 58 },
+        { pos: "LM", x: 15, y: 38 },
+        { pos: "CM", x: 38, y: 38 },
+        { pos: "CM", x: 62, y: 38 },
+        { pos: "RM", x: 85, y: 38 },
+        { pos: "ST", x: 50, y: 15 }
+      ],
+      "4-3-2-1": [
+        { pos: "GK", x: 50, y: 90 },
+        { pos: "LB", x: 15, y: 75 },
+        { pos: "CB", x: 38, y: 76 },
+        { pos: "CB", x: 62, y: 76 },
+        { pos: "RB", x: 85, y: 75 },
+        { pos: "CM", x: 25, y: 55 },
+        { pos: "CDM", x: 50, y: 55 },
+        { pos: "CM", x: 75, y: 55 },
+        { pos: "CAM", x: 34, y: 35 },
+        { pos: "CAM", x: 66, y: 35 },
+        { pos: "ST", x: 50, y: 15 }
+      ]
+    };
+
+    let currentColors = {
+      primary: "#facc15",
+      text: "#090d16",
+      gk: "#facc15",
+      accent: "#facc15"
+    };
+
+    let squad = [
+      { num: "1", name: "Blake", color: "#facc15" },
+      { num: "4", name: "Leigh", color: "#facc15" },
+      { num: "5", name: "Pinnock", color: "#facc15" },
+      { num: "6", name: "Lowe", color: "#facc15" },
+      { num: "2", name: "Lembikisa", color: "#facc15" },
+      { num: "10", name: "De Cordova-Reid", color: "#facc15" },
+      { num: "8", name: "Latibeaudiere", color: "#facc15" },
+      { num: "15", name: "Palmer", color: "#facc15" },
+      { num: "7", name: "Bailey", color: "#facc15" },
+      { num: "9", name: "Antonio", color: "#facc15" },
+      { num: "11", name: "Nicholson", color: "#facc15" }
+    ];
+
+    function getContrastText(hex) {
+      const clean = (hex || "#facc15").replace("#", "");
+      if (clean.length !== 6) return "#090d16";
+      const r = parseInt(clean.substr(0, 2), 16);
+      const g = parseInt(clean.substr(2, 2), 16);
+      const b = parseInt(clean.substr(4, 2), 16);
+      const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+      return yiq >= 145 ? "#090d16" : "#ffffff";
+    }
+
+    function applyColorVars(colors) {
+      currentColors = colors;
+      document.documentElement.style.setProperty("--kit-primary", colors.primary);
+      document.documentElement.style.setProperty("--kit-text", colors.text);
+      document.documentElement.style.setProperty("--gk-primary", colors.gk);
+      document.documentElement.style.setProperty("--accent-color", colors.accent || colors.primary);
+
+      document.getElementById("kitColorPicker").value = colors.primary;
+      document.getElementById("kitTextPicker").value = colors.text;
+      document.getElementById("gkColorPicker").value = colors.gk;
+      document.getElementById("accentColorPicker").value = colors.accent || colors.primary;
+    }
+
+    function updateGlobalColors() {
+      const primary = document.getElementById("kitColorPicker").value;
+      const text = document.getElementById("kitTextPicker").value;
+      const gk = document.getElementById("gkColorPicker").value;
+      const accent = document.getElementById("accentColorPicker").value;
+
+      applyColorVars({ primary, text, gk, accent });
+
+      squad.forEach((p, idx) => {
+        p.color = idx === 0 ? gk : primary;
+      });
+
+      buildInputs();
+      renderPitch();
+    }
+
+    function applyPreset(primary, text, gk, accent) {
+      applyColorVars({ primary, text, gk, accent });
+      squad.forEach((p, idx) => {
+        p.color = idx === 0 ? gk : primary;
+      });
+      buildInputs();
+      renderPitch();
+    }
+
+    function buildInputs() {
+      const container = document.getElementById("playerInputsContainer");
+      const formation = FORMATIONS[document.getElementById("formationSelect").value];
+      container.innerHTML = "";
+
+      squad.forEach((player, idx) => {
+        const fallbackColor = idx === 0 ? currentColors.gk : currentColors.primary;
+        const playerColor = player.color || fallbackColor;
+
+        const row = document.createElement("div");
+        row.className = "player-input-row";
+        row.innerHTML = `
+          <div class="pos-tag-static">${formation[idx].pos}</div>
+          <input
+            type="color"
+            class="player-color-picker"
+            title="Change this player's circle color"
+            value="${playerColor}"
+            oninput="updatePlayer(${idx}, 'color', this.value)"
+          />
+          <input
+            type="text"
+            class="num-input"
+            placeholder="#"
+            maxlength="3"
+            value="${player.num}"
+            oninput="updatePlayer(${idx}, 'num', this.value)"
+          />
+          <input
+            type="text"
+            placeholder="Player Name"
+            value="${player.name}"
+            oninput="updatePlayer(${idx}, 'name', this.value)"
+          />
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function updatePlayer(index, field, value) {
+      squad[index][field] = value;
+      renderPitch();
+    }
+
+    function clearNumbers() {
+      squad.forEach((p) => (p.num = ""));
+      buildInputs();
+      renderPitch();
+    }
+
+    function handleFormationChange() {
+      buildInputs();
+      renderPitch();
+    }
+
+    function togglePositions() {
+      const show = document.getElementById("togglePosCheck").checked;
+      document.getElementById("pitchCanvas").classList.toggle("show-pos", show);
+      saveLocal();
+    }
+
+    function renderPitch() {
+      const formationKey = document.getElementById("formationSelect").value;
+      const coords = FORMATIONS[formationKey];
+      const layer = document.getElementById("playersLayer");
+
+      document.getElementById("displayTeamName").textContent =
+        document.getElementById("teamNameInput").value || "TEAM LINEUP";
+      document.getElementById("badgeText").textContent =
+        document.getElementById("badgeInput").value || "XI";
+      document.getElementById("displayFormation").textContent =
+        FORMATION_LABELS[formationKey] || formationKey;
+      document.getElementById("footerLeft").textContent =
+        document.getElementById("footerLeftInput").value || "";
+      document.getElementById("footerRight").textContent =
+        document.getElementById("footerRightInput").value || "";
+
+      layer.innerHTML = "";
+
+      squad.forEach((player, i) => {
+        const spot = coords[i];
+        const node = document.createElement("div");
+        node.className = "player-node";
+        node.style.left = `${spot.x}%`;
+        node.style.top = `${spot.y}%`;
+
+        const displayNum = player.num ? player.num.trim() : "";
+        const fallbackColor = i === 0 ? currentColors.gk : currentColors.primary;
+        const tokenBg = player.color || fallbackColor;
+        const tokenFg = i === 0 ? getContrastText(tokenBg) : currentColors.text;
+
+        node.innerHTML = `
+          <div class="jersey-token" style="--token-bg:${tokenBg}; --token-fg:${tokenFg};">${displayNum}</div>
+          <div class="pos-pill">${spot.pos}</div>
+          <div class="name-plate">${player.name}</div>
+        `;
+        layer.appendChild(node);
+      });
+
+      saveLocal();
+    }
+
+    function getStateObject() {
+      return {
+        team: document.getElementById("teamNameInput").value,
+        badge: document.getElementById("badgeInput").value,
+        footerLeft: document.getElementById("footerLeftInput").value,
+        footerRight: document.getElementById("footerRightInput").value,
+        formation: document.getElementById("formationSelect").value,
+        showPos: document.getElementById("togglePosCheck").checked,
+        colors: currentColors,
+        squad
+      };
+    }
+
+    function applyStateObject(parsed) {
+      if (!parsed) return;
+      if (parsed.team !== undefined) document.getElementById("teamNameInput").value = parsed.team;
+      if (parsed.badge !== undefined) document.getElementById("badgeInput").value = parsed.badge;
+      if (parsed.footerLeft !== undefined) document.getElementById("footerLeftInput").value = parsed.footerLeft;
+      if (parsed.footerRight !== undefined) document.getElementById("footerRightInput").value = parsed.footerRight;
+      if (parsed.formation && FORMATIONS[parsed.formation]) {
+        document.getElementById("formationSelect").value = parsed.formation;
+      }
+      if (typeof parsed.showPos === "boolean") {
+        document.getElementById("togglePosCheck").checked = parsed.showPos;
+        document.getElementById("pitchCanvas").classList.toggle("show-pos", parsed.showPos);
+      }
+      if (parsed.colors) {
+        applyColorVars(parsed.colors);
+      }
+      if (Array.isArray(parsed.squad) && parsed.squad.length === 11) {
+        squad = parsed.squad;
+      }
+    }
+
+    function saveLocal() {
+      localStorage.setItem("kranky_starting_11_v6", JSON.stringify(getStateObject()));
+    }
+
+    async function pushCloudSync() {
+      const statusEl = document.getElementById("syncStatusText");
+      statusEl.textContent = "Syncing...";
+      statusEl.style.color = "#eab308";
+      try {
+        await fetch(`https://ntfy.sh/${SYNC_CHANNEL}`, {
+          method: "POST",
+          body: JSON.stringify(getStateObject())
+        });
+        statusEl.textContent = "Synced! Hit Refresh in OBS";
+        statusEl.style.color = "#22c55e";
+      } catch (e) {
+        statusEl.textContent = "Sync failed";
+        statusEl.style.color = "#ef4444";
+      }
+    }
+
+    async function pullCloudSync() {
+      try {
+        const res = await fetch(`https://ntfy.sh/${SYNC_CHANNEL}/json?poll=1&since=24h`, {
+          cache: "no-store"
+        });
+        const text = await res.text();
+        const lines = text.trim().split("\n").filter(Boolean);
+        if (lines.length > 0) {
+          const lastEvent = JSON.parse(lines[lines.length - 1]);
+          if (lastEvent && lastEvent.message) {
+            const state = JSON.parse(lastEvent.message);
+            applyStateObject(state);
+            buildInputs();
+            renderPitch();
+          }
+        }
+      } catch (e) {}
+    }
+
+    async function initApp() {
+      const params = new URLSearchParams(window.location.search);
+      const isObs = params.get("obs") === "1";
+
+      if (isObs) {
+        document.body.classList.add("obs-mode");
+      }
+
+      const saved = localStorage.getItem("kranky_starting_11_v6");
+      if (saved) {
+        try {
+          applyStateObject(JSON.parse(saved));
+        } catch (e) {}
+      }
+
+      buildInputs();
+      renderPitch();
+
+      if (isObs) {
+        await pullCloudSync();
+      }
+    }
+
+    function copyObsUrl() {
+      const fixedUrl = `${window.location.origin}${window.location.pathname}?obs=1`;
+      navigator.clipboard.writeText(fixedUrl);
+      alert("Copied Fixed OBS URL:\n" + fixedUrl + "\n\nYour OBS URL is already set—just click 'Sync to OBS' here and hit 'Refresh' in OBS!");
+    }
+
+    initApp();
+  </script>
+</body>
+</html>
