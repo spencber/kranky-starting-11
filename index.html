@@ -280,7 +280,7 @@
       border-bottom: none;
     }
 
-    /* --- PLAYER TOKENS (Per-player color supported via --token-bg / --token-fg) --- */
+    /* --- PLAYER TOKENS --- */
     .player-node {
       position: absolute;
       transform: translate(-50%, -50%);
@@ -330,19 +330,22 @@
       display: inline-block;
     }
 
+    /* BOLDER, LARGER, MORE PROMINENT BROADCAST NAMEPLATE */
     .name-plate {
-      margin-top: 5px;
-      padding: 3px 8px;
-      background: rgba(9, 13, 20, 0.92);
-      border-left: 3px solid var(--accent-color);
-      border-radius: 3px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.4px;
+      margin-top: 6px;
+      padding: 4px 10px;
+      background: rgba(8, 12, 19, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-left: 4px solid var(--accent-color);
+      border-radius: 4px;
+      font-size: 13.5px;
+      font-weight: 900;
+      letter-spacing: 0.6px;
       color: #ffffff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
       text-transform: uppercase;
       white-space: nowrap;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.88);
     }
 
     .graphic-footer {
@@ -483,7 +486,6 @@
       background: #233044;
     }
 
-    /* Ordered List: Position | Individual Color | # | Name */
     .player-inputs-list {
       display: flex;
       flex-direction: column;
@@ -781,7 +783,6 @@
       accent: "#eab308"
     };
 
-    /* Each player now stores their own individual circle color (`color`) */
     let squad = [
       { num: "", name: "Blake", color: "#38bdf8" },
       { num: "", name: "Leigh", color: "#eab308" },
@@ -819,7 +820,6 @@
       document.getElementById("accentColorPicker").value = colors.accent || colors.primary;
     }
 
-    /* Updates global kit colors and applies them across the squad */
     function updateGlobalColors() {
       const primary = document.getElementById("kitColorPicker").value;
       const text = document.getElementById("kitTextPicker").value;
