@@ -723,4 +723,103 @@
         document.getElementById("teamNameInput").value || "TEAM LINEUP";
       document.getElementById("badgeText").textContent =
         document.getElementById("badgeInput").value || "XI";
-      document.getElementById("displayFormation").text
+      document.getElementById("displayFormation").textContent = `${formationKey} • STARTING XI`;
+
+      layer.innerHTML = "";
+
+      squad.forEach((player, i) => {
+        const spot = coords[i];
+        const node = document.createElement("div");
+        node.className = "player-node";
+        node.style.left = `${spot.x}%`;
+        node.style.top = `${spot.y}%`;
+
+        const isGk = i === 0 ? "gk" : "";
+        node.innerHTML = `
+          <div class="jersey-token ${isGk}">${player.num}</div>
+          <div class="pos-pill">${spot.pos}</div>
+          <div class="name-plate">${player.name}</div>
+        `;
+        layer.appendChild(node);
+      });
+
+      saveState();
+    }
+
+    function getStateObject() {
+      return {
+        team: document.getElementById("teamNameInput").value,
+        badge: document.getElementById("badgeInput").value,
+        formation: document.getElementById("formationSelect").value,
+        showPos: document.getElementById("togglePosCheck").checked,
+        colors: currentColors,
+        squad
+      };
+    }
+
+    function applyStateObject(parsed) {
+      if (!parsed) return;
+      if (parsed.team) document.getElementById("teamNameInput").value = parsed.team;
+      if (parsed.badge) document.getElementById("badgeInput").value = parsed.badge;
+      if (parsed.formation && FORMATIONS[parsed.formation]) {
+        document.getElementById("formationSelect").value = parsed.formation;
+      }
+      if (typeof parsed.showPos === "boolean") {
+        document.getElementById("togglePosCheck").checked = parsed.showPos;
+        document.getElementById("pitchCanvas").classList.toggle("show-pos", parsed.showPos);
+      }
+      if (parsed.colors) {
+        currentColors = parsed.colors;
+        document.documentElement.style.setProperty("--kit-primary", parsed.colors.primary);
+        document.documentElement.style.setProperty("--kit-text", parsed.colors.text);
+        document.documentElement.style.setProperty("--gk-primary", parsed.colors.gk);
+      }
+      if (Array.isArray(parsed.squad) && parsed.squad.length === 11) {
+        squad = parsed.squad;
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem("kranky_starting_11", JSON.stringify(getStateObject()));
+    }
+
+    function loadState() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("obs") === "1") {
+        document.body.classList.add("obs-mode");
+      }
+
+      // 1. Prioritize data embedded directly in the URL (for OBS Browser Source)
+      const dataParam = params.get("data");
+      if (dataParam) {
+        try {
+          const decoded = JSON.parse(decodeURIComponent(escape(atob(dataParam))));
+          applyStateObject(decoded);
+          return;
+        } catch (e) {}
+      }
+
+      // 2. Fallback to browser localStorage
+      const saved = localStorage.getItem("kranky_starting_11");
+      if (saved) {
+        try {
+          applyStateObject(JSON.parse(saved));
+        } catch (e) {}
+      }
+    }
+
+    function copyObsUrl() {
+      const url = new URL(window.location.origin + window.location.pathname);
+      url.searchParams.set("obs", "1");
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(getStateObject()))));
+      url.searchParams.set("data", encoded);
+      navigator.clipboard.writeText(url.toString());
+      alert("Copied OBS Overlay URL with your exact lineup & formation! Paste it into your OBS Browser Source URL.");
+    }
+
+    loadState();
+    buildInputs();
+    renderPitch();
+  </script>
+</body>
+</html>
