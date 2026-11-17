@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kranky Starting 11 Studio</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@600;700;800;900&display=swap');
+
     :root {
       --bg-app: #07090d;
       --bg-panel: #0e1218;
@@ -12,7 +14,7 @@
       --border-subtle: rgba(255, 255, 255, 0.08);
       --kit-primary: #facc15;
       --kit-text: #090d16;
-      --gk-primary: #2563eb;
+      --gk-primary: #22c55e;
       --accent-color: #facc15;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
@@ -131,7 +133,6 @@
       position: relative;
     }
 
-    /* Top Pill Bar (Matches "Jamaica 3 - 2 Mexico" pill) */
     .top-match-bar {
       padding: 10px 16px 6px;
       display: flex;
@@ -163,7 +164,6 @@
       font-size: 10.5px;
     }
 
-    /* Gold-Ruled Broadcast Header */
     .graphic-header {
       padding: 10px 18px 12px;
       background: linear-gradient(180deg, #0b0f16 0%, #0f141e 100%);
@@ -214,7 +214,6 @@
       line-height: 1.05;
     }
 
-    /* Circular Formation Callout Badge (Matches the Rating Circle on Right) */
     .formation-circle-badge {
       min-width: 66px;
       height: 54px;
@@ -247,7 +246,6 @@
       margin-top: 2px;
     }
 
-    /* Gold-Bordered Tactical Summary Strip (Matches the 5 Stat Boxes) */
     .tactical-boxes-strip {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -282,14 +280,14 @@
 
     /* --- TACTICAL PITCH AREA --- */
     .pitch-wrapper {
-      padding: 10px 14px 10px;
+      padding: 10px 12px 10px;
       background: #080b10;
     }
 
     .pitch {
       position: relative;
       width: 100%;
-      height: 465px;
+      height: 475px;
       border-radius: 8px;
       border: 1.5px solid color-mix(in srgb, var(--accent-color) 40%, rgba(255, 255, 255, 0.1));
       overflow: hidden;
@@ -298,9 +296,9 @@
         repeating-linear-gradient(
           to bottom,
           #0d1118 0px,
-          #0d1118 46.5px,
-          #121721 46.5px,
-          #121721 93px
+          #0d1118 47.5px,
+          #121721 47.5px,
+          #121721 95px
         );
     }
 
@@ -346,7 +344,7 @@
       border-bottom: none;
     }
 
-    /* --- PLAYER TOKENS WITH POSITION BADGES --- */
+    /* --- PLAYER TOKENS WITH LARGE, HIGH-VISIBILITY NAMEPLATES --- */
     .player-node {
       position: absolute;
       transform: translate(-50%, -50%);
@@ -375,15 +373,14 @@
       );
       color: var(--token-fg, var(--kit-text));
       font-weight: 900;
-      font-size: 14.5px;
+      font-size: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid rgba(255, 255, 255, 0.92);
-      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.85);
+      border: 2px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.9);
     }
 
-    /* Position Badge on Top-Right of Player Circle */
     .pos-pill {
       display: none;
       position: absolute;
@@ -404,20 +401,23 @@
       display: inline-block;
     }
 
-    /* High-Contrast Broadcast Nameplate */
+    /* BIGGER, BOLDER BROADCAST TV NAMEPLATE */
     .name-plate {
       margin-top: 5px;
       padding: 3px 9px;
-      background: #06080c;
-      border: 1.5px solid color-mix(in srgb, var(--accent-color) 65%, rgba(255, 255, 255, 0.25));
-      border-radius: 4px;
-      font-size: 12px;
+      background: #040609;
+      border: 1.5px solid color-mix(in srgb, var(--accent-color) 85%, #ffffff);
+      border-radius: 5px;
+      font-family: 'Barlow Condensed', 'Inter', sans-serif;
+      font-size: 16px;
       font-weight: 900;
-      letter-spacing: 0.4px;
+      line-height: 1.05;
+      letter-spacing: 0.5px;
       color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 1);
       text-transform: uppercase;
       white-space: nowrap;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.95);
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.98);
     }
 
     .graphic-footer {
@@ -627,7 +627,7 @@
   </header>
 
   <main class="workspace">
-    <!-- LEFT: BROADCAST GRAPHIC (KRANKY RATINGS PRESENTATION STYLE) -->
+    <!-- LEFT: BROADCAST GRAPHIC -->
     <section class="broadcast-card" id="broadcastGraphic">
       <div class="top-match-bar">
         <div class="match-pill">
@@ -658,7 +658,7 @@
       </div>
 
       <div class="pitch-wrapper">
-        <div class="pitch show-pos" id="pitchCanvas">
+        <div class="pitch" id="pitchCanvas">
           <div class="pitch-line-half"></div>
           <div class="pitch-circle-center"></div>
           <div class="pitch-box-top"></div>
@@ -695,7 +695,7 @@
           </div>
           <div style="display:flex; align-items:flex-end; padding-bottom:6px;">
             <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#e2e8f0;">
-              <input type="checkbox" id="togglePosCheck" checked onchange="togglePositions()" />
+              <input type="checkbox" id="togglePosCheck" onchange="togglePositions()" />
               Show Position Badges (GK, CB, LWB, ST)
             </label>
           </div>
@@ -750,7 +750,7 @@
           </div>
           <div class="color-box">
             <span>GK Default</span>
-            <input type="color" id="gkColorPicker" value="#2563eb" oninput="updateGlobalColors()" />
+            <input type="color" id="gkColorPicker" value="#22c55e" oninput="updateGlobalColors()" />
           </div>
           <div class="color-box">
             <span>Gold Border Trim</span>
@@ -759,8 +759,8 @@
         </div>
 
         <div class="preset-row">
+          <button class="preset-btn" onclick="applyPreset('#facc15', '#090d16', '#22c55e', '#facc15')">Jamaica Gold / Green GK</button>
           <button class="preset-btn" onclick="applyPreset('#facc15', '#090d16', '#2563eb', '#facc15')">Jamaica Gold / Blue GK</button>
-          <button class="preset-btn" onclick="applyPreset('#facc15', '#090d16', '#facc15', '#facc15')">Jamaica All-Gold</button>
           <button class="preset-btn" onclick="applyPreset('#ef4444', '#ffffff', '#2563eb', '#facc15')">Arsenal Red / Gold Trim</button>
           <button class="preset-btn" onclick="applyPreset('#38bdf8', '#090d16', '#f97316', '#facc15')">Sky Blue / Gold Trim</button>
         </div>
@@ -793,36 +793,36 @@
     const FORMATIONS = {
       "3-4-3": [
         { pos: "GK", x: 50, y: 89 },
-        { pos: "CB", x: 23, y: 72 },
+        { pos: "CB", x: 20, y: 72 },
         { pos: "CB", x: 50, y: 74 },
-        { pos: "CB", x: 77, y: 72 },
-        { pos: "LWB", x: 14, y: 47 },
+        { pos: "CB", x: 80, y: 72 },
+        { pos: "LWB", x: 13, y: 47 },
         { pos: "CM", x: 38, y: 48 },
         { pos: "CM", x: 62, y: 48 },
-        { pos: "RWB", x: 86, y: 47 },
-        { pos: "LW", x: 20, y: 20 },
+        { pos: "RWB", x: 87, y: 47 },
+        { pos: "LW", x: 19, y: 20 },
         { pos: "ST", x: 50, y: 16 },
-        { pos: "RW", x: 80, y: 20 }
+        { pos: "RW", x: 81, y: 20 }
       ],
       "4-3-3": [
         { pos: "GK", x: 50, y: 89 },
-        { pos: "LB", x: 15, y: 72 },
+        { pos: "LB", x: 14, y: 72 },
         { pos: "CB", x: 38, y: 74 },
         { pos: "CB", x: 62, y: 74 },
-        { pos: "RB", x: 85, y: 72 },
-        { pos: "CM", x: 24, y: 48 },
+        { pos: "RB", x: 86, y: 72 },
+        { pos: "CM", x: 23, y: 48 },
         { pos: "CDM", x: 50, y: 50 },
-        { pos: "CM", x: 76, y: 48 },
+        { pos: "CM", x: 77, y: 48 },
         { pos: "LW", x: 18, y: 20 },
         { pos: "ST", x: 50, y: 16 },
         { pos: "RW", x: 82, y: 20 }
       ],
       "4-2-3-1": [
         { pos: "GK", x: 50, y: 89 },
-        { pos: "LB", x: 15, y: 72 },
+        { pos: "LB", x: 14, y: 72 },
         { pos: "CB", x: 38, y: 74 },
         { pos: "CB", x: 62, y: 74 },
-        { pos: "RB", x: 85, y: 72 },
+        { pos: "RB", x: 86, y: 72 },
         { pos: "CDM", x: 35, y: 55 },
         { pos: "CDM", x: 65, y: 55 },
         { pos: "LW", x: 18, y: 35 },
@@ -832,67 +832,67 @@
       ],
       "3-5-2": [
         { pos: "GK", x: 50, y: 89 },
-        { pos: "CB", x: 23, y: 73 },
+        { pos: "CB", x: 20, y: 73 },
         { pos: "CB", x: 50, y: 75 },
-        { pos: "CB", x: 77, y: 73 },
-        { pos: "LWB", x: 13, y: 47 },
+        { pos: "CB", x: 80, y: 73 },
+        { pos: "LWB", x: 12, y: 47 },
         { pos: "CM", x: 31, y: 48 },
         { pos: "CDM", x: 50, y: 50 },
         { pos: "CM", x: 69, y: 48 },
-        { pos: "RWB", x: 87, y: 47 },
-        { pos: "ST", x: 36, y: 18 },
-        { pos: "ST", x: 64, y: 18 }
+        { pos: "RWB", x: 88, y: 47 },
+        { pos: "ST", x: 35, y: 18 },
+        { pos: "ST", x: 65, y: 18 }
       ],
       "4-4-2": [
         { pos: "GK", x: 50, y: 89 },
-        { pos: "LB", x: 15, y: 72 },
+        { pos: "LB", x: 14, y: 72 },
         { pos: "CB", x: 38, y: 74 },
         { pos: "CB", x: 62, y: 74 },
-        { pos: "RB", x: 85, y: 72 },
-        { pos: "LM", x: 15, y: 47 },
+        { pos: "RB", x: 86, y: 72 },
+        { pos: "LM", x: 14, y: 47 },
         { pos: "CM", x: 38, y: 47 },
         { pos: "CM", x: 62, y: 47 },
-        { pos: "RM", x: 85, y: 47 },
-        { pos: "ST", x: 36, y: 18 },
-        { pos: "ST", x: 64, y: 18 }
+        { pos: "RM", x: 86, y: 47 },
+        { pos: "ST", x: 35, y: 18 },
+        { pos: "ST", x: 65, y: 18 }
       ],
       "5-3-2": [
         { pos: "GK", x: 50, y: 89 },
-        { pos: "LWB", x: 13, y: 71 },
+        { pos: "LWB", x: 12, y: 71 },
         { pos: "CB", x: 31, y: 74 },
         { pos: "CB", x: 50, y: 74 },
         { pos: "CB", x: 69, y: 74 },
-        { pos: "RWB", x: 87, y: 71 },
-        { pos: "CM", x: 26, y: 47 },
+        { pos: "RWB", x: 88, y: 71 },
+        { pos: "CM", x: 25, y: 47 },
         { pos: "CDM", x: 50, y: 47 },
-        { pos: "CM", x: 74, y: 47 },
-        { pos: "ST", x: 36, y: 18 },
-        { pos: "ST", x: 64, y: 18 }
+        { pos: "CM", x: 75, y: 47 },
+        { pos: "ST", x: 35, y: 18 },
+        { pos: "ST", x: 65, y: 18 }
       ],
       "4-1-4-1": [
         { pos: "GK", x: 50, y: 89 },
-        { pos: "LB", x: 15, y: 73 },
+        { pos: "LB", x: 14, y: 73 },
         { pos: "CB", x: 38, y: 75 },
         { pos: "CB", x: 62, y: 75 },
-        { pos: "RB", x: 85, y: 73 },
+        { pos: "RB", x: 86, y: 73 },
         { pos: "CDM", x: 50, y: 56 },
-        { pos: "LM", x: 15, y: 37 },
+        { pos: "LM", x: 14, y: 37 },
         { pos: "CM", x: 38, y: 37 },
         { pos: "CM", x: 62, y: 37 },
-        { pos: "RM", x: 85, y: 37 },
+        { pos: "RM", x: 86, y: 37 },
         { pos: "ST", x: 50, y: 15 }
       ],
       "4-3-2-1": [
         { pos: "GK", x: 50, y: 89 },
-        { pos: "LB", x: 15, y: 73 },
+        { pos: "LB", x: 14, y: 73 },
         { pos: "CB", x: 38, y: 75 },
         { pos: "CB", x: 62, y: 75 },
-        { pos: "RB", x: 85, y: 73 },
-        { pos: "CM", x: 25, y: 53 },
+        { pos: "RB", x: 86, y: 73 },
+        { pos: "CM", x: 24, y: 53 },
         { pos: "CDM", x: 50, y: 53 },
-        { pos: "CM", x: 75, y: 53 },
-        { pos: "CAM", x: 34, y: 34 },
-        { pos: "CAM", x: 66, y: 34 },
+        { pos: "CM", x: 76, y: 53 },
+        { pos: "CAM", x: 33, y: 34 },
+        { pos: "CAM", x: 67, y: 34 },
         { pos: "ST", x: 50, y: 15 }
       ]
     };
@@ -900,22 +900,22 @@
     let currentColors = {
       primary: "#facc15",
       text: "#090d16",
-      gk: "#2563eb",
+      gk: "#22c55e",
       accent: "#facc15"
     };
 
     let squad = [
-      { num: "1", name: "Waite", color: "#2563eb" },
-      { num: "4", name: "Freckleton", color: "#facc15" },
-      { num: "5", name: "King", color: "#facc15" },
-      { num: "8", name: "Latibeaudiere", color: "#facc15" },
-      { num: "2", name: "Webster", color: "#facc15" },
-      { num: "10", name: "Clarke", color: "#facc15" },
-      { num: "6", name: "Anderson", color: "#facc15" },
-      { num: "15", name: "Hall", color: "#facc15" },
-      { num: "7", name: "Cephas", color: "#facc15" },
-      { num: "9", name: "East", color: "#facc15" },
-      { num: "11", name: "Dixon", color: "#facc15" }
+      { num: "23", name: "Waite", color: "#22c55e" },
+      { num: "2", name: "Freckleton", color: "#facc15" },
+      { num: "17", name: "King", color: "#facc15" },
+      { num: "15", name: "Latibeaudiere", color: "#facc15" },
+      { num: "22", name: "Webster", color: "#facc15" },
+      { num: "5", name: "Clarke", color: "#facc15" },
+      { num: "14", name: "Anderson", color: "#facc15" },
+      { num: "18", name: "Hall", color: "#facc15" },
+      { num: "20", name: "Cephas", color: "#facc15" },
+      { num: "12", name: "East", color: "#facc15" },
+      { num: "10", name: "Dixon", color: "#facc15" }
     ];
 
     function getContrastText(hex) {
@@ -1120,7 +1120,7 @@
     }
 
     function saveLocal() {
-      localStorage.setItem("kranky_starting_11_v7", JSON.stringify(getStateObject()));
+      localStorage.setItem("kranky_starting_11_v8", JSON.stringify(getStateObject()));
     }
 
     async function pushCloudSync() {
@@ -1165,7 +1165,7 @@
     function adjustObsScale() {
       const card = document.getElementById("broadcastGraphic");
       if (!card || !document.body.classList.contains("obs-mode")) return;
-      const cardHeight = card.offsetHeight || 650;
+      const cardHeight = card.offsetHeight || 660;
       const scaleW = window.innerWidth / 440;
       const scaleH = window.innerHeight / cardHeight;
       const scale = Math.min(scaleW, scaleH);
@@ -1182,7 +1182,7 @@
         window.addEventListener("resize", adjustObsScale);
       }
 
-      const saved = localStorage.getItem("kranky_starting_11_v7");
+      const saved = localStorage.getItem("kranky_starting_11_v8");
       if (saved) {
         try {
           applyStateObject(JSON.parse(saved));
